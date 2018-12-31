@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Montserrat,
+    sans-serif;
+  font-size: 1.6rem;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+button {
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Montserrat, serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 1.2rem;
+}
+
+button:active,
+button:focus,
+button:hover {
+  outline: none;
+}
+
+.container {
+  padding: 0 15px;
+}
+
+.demo-wrapper {
+  height: 90vh;
+}
+
+.demo__footer {
+  align-items: center;
+  background-color: #fff;
+  bottom: 0;
+  display: flex;
+  height: 6.4rem;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  z-index: 50;
+}
+
+.demo__footer button {
+  display: inline-block;
+  height: 2.5rem;
+  left: 2.5rem;
+  padding: 0;
+  position: absolute;
+  top: 2rem;
+  width: 3.5rem;
+}
+
+.demo__footer button span {
+  background-color: #f04;
+  display: block;
+  height: 0.3rem;
+  position: relative;
+  top: 0;
+  width: 3.5rem;
+}
+
+.demo__footer button span:before {
+  background-color: #f04;
+  content: "";
+  display: block;
+  height: 0.3rem;
+  position: absolute;
+  top: -1rem;
+  width: 3.5rem;
+}
+
+.demo__footer button span:after {
+  background-color: #f04;
+  content: "";
+  display: block;
+  height: 0.3rem;
+  position: absolute;
+  top: 1rem;
+  width: 3.5rem;
+}
+
+.demo__menu {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 8rem;
+  width: 100%;
+}
+
+.demo__menu a {
+  margin-right: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+@media (min-width: 768px) {
+  .demo__menu {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 536px) {
+  .demo__menu a {
+    margin-bottom: 0;
+  }
+}

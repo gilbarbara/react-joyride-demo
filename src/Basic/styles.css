@@ -1,0 +1,54 @@
+.demo__section {
+  align-items: flex-start;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  padding: 30px 15px;
+}
+
+.demo__section h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.demo__section h2 {
+  font-size: 3.6rem;
+  margin: 0;
+  text-align: center;
+}
+
+.demo__hero {
+  align-items: center;
+  background-color: #b9007d;
+  color: #fff;
+}
+
+.demo__hero button:first-of-type {
+  background-color: #fff;
+  border-radius: 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  padding: 1.5rem 3rem;
+}
+
+.demo__hero > div {
+  max-width: 60rem;
+  text-align: center;
+}
+
+.demo__projects {
+  background-color: #b96100;
+  color: #fff;
+}
+
+.demo__how-it-works {
+  background-color: #33b900;
+  color: #fff;
+}
+
+.demo__about {
+  background-color: #00b9ab;
+  color: #000;
+}
