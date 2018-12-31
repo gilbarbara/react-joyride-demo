@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import ReactJoyride, { ACTIONS, EVENTS } from "react-joyride";
-import { Carousel } from "react-responsive-carousel";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import ReactJoyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
+import { Carousel } from 'react-responsive-carousel';
+import styled from 'styled-components';
 
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const isPortrait = window.innerHeight > window.innerWidth;
 const height = isPortrait ? 700 : 300;
@@ -24,26 +23,26 @@ const CarouselWrapper = styled.div`
 
 class CarouselDemo extends Component {
   state = {
-    continuous: true,
     run: true,
     steps: [
       {
-        content: "Our awesome projects",
-        target: ".app__carousel",
-        textAlign: "center"
+        content: 'Our awesome projects',
+        target: '.app__carousel',
+        textAlign: 'center',
+        disableBeacon: true,
       },
       {
         content:
-          "Can be advanced by clicking an element through the overlay hole.",
+          'Can be advanced by clicking an element through the overlay hole.',
         disableCloseOnEsc: true,
         disableOverlayClicks: true,
-        target: ".app__carousel",
-        title: "Our Mission"
+        target: '.app__carousel',
+        title: 'Our Mission'
       },
       {
-        content: "This step tests what happens when a target is missing",
-        target: ".app__carousel",
-        title: "Unmounted target"
+        content: 'This step tests what happens when a target is missing',
+        target: '.app__carousel',
+        title: 'Unmounted target'
       },
       {
         content: (
@@ -66,124 +65,75 @@ class CarouselDemo extends Component {
             </svg>
           </div>
         ),
-        target: ".app__carousel"
+        target: '.app__carousel'
       },
       {
         content:
-          "Text only steps — Because sometimes you don't really need a proper heading",
-        target: ".app__carousel"
+          'Text only steps — Because sometimes you don\'t really need a proper heading',
+        target: '.app__carousel'
       }
     ],
     stepIndex: 0,
-    tooltipOptions: {
-      wrapperOptions: {
-        offset: -5
-      }
-    }
   };
 
-  static propTypes = {
-    joyride: PropTypes.shape({
-      callback: PropTypes.func
-    })
-  };
-
-  static defaultProps = {
-    joyride: {}
-  };
-
-  handleClickStart = e => {
-    e.preventDefault();
-
-    this.setState({
-      run: true,
-      stepIndex: 0
-    });
-  };
-
-  handleClickNextButton = () => {
-    const { stepIndex } = this.state;
-
-    if (this.state.stepIndex === 1) {
-      this.setState({
-        stepIndex: stepIndex + 1
-      });
+  handleClickCarousel = (index) => {
+    if (index === 0) {
+      this.setState({ run: true, stepIndex: 0 });
     }
   };
 
   handleJoyrideCallback = data => {
-    const { joyride } = this.props;
-    const { action, index, type } = data;
-    let stepIndex = this.state.stepIndex;
+    const { action, index, status, type } = data;
 
-    if (type === EVENTS.STEP_AFTER) {
+    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
       // Update state to advance the tour
-      stepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
-    } else if (type === EVENTS.TOOLTIP_CLOSE) {
-      stepIndex = index + 1;
-    } else if (type === EVENTS.TARGET_NOT_FOUND) {
-      stepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
+      this.setState({ stepIndex: index + (action === ACTIONS.PREV ? -1 : 1) });
+    }
+    else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      // Need to set our running state to false, so we can restart if we click start again.
+      this.setState({ run: false });
     }
 
-    this.setState({ stepIndex });
-
-    if (typeof joyride.callback === "function") {
-      joyride.callback(data);
-    } else {
-      console.group(type);
-      console.log(data); //eslint-disable-line no-console
-      console.groupEnd();
-    }
+    console.groupCollapsed(type);
+    console.log(data); //eslint-disable-line no-console
+    console.groupEnd();
   };
 
   render() {
-    const joyrideProps = {
-      ...this.state,
-      ...this.props.joyride
-    };
+    const { run, stepIndex, steps } = this.state;
 
     return (
       <Wrapper>
         <ReactJoyride
+          run={run}
+          steps={steps}
+          stepIndex={stepIndex}
+          continuous
           scrollToFirstStep
           showSkipButton
-          {...joyrideProps}
           callback={this.handleJoyrideCallback}
           styles={{
             options: {
-              primaryColor: "#099",
-              overlayColor: "rgba(0, 122, 122, 0.6)"
+              primaryColor: '#099',
+              overlayColor: 'rgba(0, 122, 122, 0.6)',
             }
           }}
         />
         <CarouselWrapper className="app__carousel">
           <Carousel
-            style={{ height: "60vh" }}
-            showArrows={false}
-            showThumbs={false}
+            style={{ height: '60vh' }}
+            selectedItem={stepIndex}
+            showArrows={!run}
+            onClickItem={this.handleClickCarousel}
             showIndicators={false}
-            selectedItem={joyrideProps.stepIndex}
+            showStatus={false}
+            showThumbs={false}
           >
-            <img
-              src={`https://placeimg.com/${width}/${height}/any/grayscale?1`}
-              alt="1"
-            />
-            <img
-              src={`https://placeimg.com/${width}/${height}/any/grayscale?2`}
-              alt="2"
-            />
-            <img
-              src={`https://placeimg.com/${width}/${height}/any/grayscale?3`}
-              alt="3"
-            />
-            <img
-              src={`https://placeimg.com/${width}/${height}/any/grayscale?4`}
-              alt="4"
-            />
-            <img
-              src={`https://placeimg.com/${width}/${height}/any/grayscale?5`}
-              alt="5"
-            />
+            <img src={`https://placeimg.com/${width}/${height}/any/grayscale?1`} onClick={this.handleClickStart} style={{ cursor: 'pointer' }} alt="1" />
+            <img src={`https://placeimg.com/${width}/${height}/any/grayscale?2`} alt="2" />
+            <img src={`https://placeimg.com/${width}/${height}/any/grayscale?3`} alt="3" />
+            <img src={`https://placeimg.com/${width}/${height}/any/grayscale?4`} alt="4" />
+            <img src={`https://placeimg.com/${width}/${height}/any/grayscale?5`} alt="5" />
           </Carousel>
         </CarouselWrapper>
       </Wrapper>

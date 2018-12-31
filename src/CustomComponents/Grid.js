@@ -15,14 +15,14 @@ const GridImages = styled.div`
   grid-template-columns: repeat(1, 1fr);
   padding: 30px;
   width: 100%;
-
+  
   @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
 `;
 
 const ImgWrapper = styled.div`
-  background-color: #f3c98b;
+  background-color: #F3C98B;
   padding-bottom: calc(100% / 1.5);
   position: relative;
   width: 100%;

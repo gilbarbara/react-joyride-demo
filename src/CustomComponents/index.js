@@ -1,27 +1,25 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { FormattedMessage } from "react-intl";
-import styled, { keyframes } from "styled-components";
-import ReactJoyride from "react-joyride";
-import Select from "react-select";
+import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+import styled, { keyframes } from 'styled-components';
+import ReactJoyride, { STATUS } from 'react-joyride';
+import Select from 'react-select';
 
-import Icon from "./Icon";
-import Intl from "./Intl";
-import Grid from "./Grid";
+import Icon from './Icon';
+import Intl from './Intl';
+import Grid from './Grid';
 
 const Wrapper = styled.div`
   background-color: #ccc;
   box-sizing: border-box;
   min-height: 100vh;
-  padding-bottom: 50px;
-  position: relative;
+	padding-bottom: 50px;
+	position: relative;
 `;
 
 const TooltipBody = styled.div`
   background-color: #daa588;
   min-width: 290px;
   max-width: 420px;
-  padding-bottom: 3rem;
 `;
 
 const TooltipContent = styled.div`
@@ -40,6 +38,7 @@ const TooltipFooter = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
+  padding: 5px;
 
   * + * {
     margin-left: 0.5rem;
@@ -63,7 +62,7 @@ const Tooltip = ({
   index,
   primaryProps,
   setTooltipRef,
-  step
+  step,
 }) => (
   <TooltipBody ref={setTooltipRef}>
     {step.title && <TooltipTitle>{step.title}</TooltipTitle>}
@@ -119,7 +118,7 @@ const Selector = styled.div`
 const Option = styled.div`
   align-items: center;
   display: flex;
-
+  
   svg {
     margin-right: 8px;
   }
@@ -129,7 +128,7 @@ const BeaconComponent = props => <Beacon {...props} />;
 
 class Custom extends Component {
   state = {
-    locale: "en",
+    locale: 'en',
     run: true,
     steps: [
       {
@@ -140,25 +139,25 @@ class Custom extends Component {
             <button>YES</button>
           </div>
         ),
-        placement: "bottom",
-        placementBeacon: "top",
-        target: ".image-grid div:nth-child(1)",
-        textAlign: "center",
-        title: "Our awesome projects"
+        placement: 'bottom',
+        placementBeacon: 'top',
+        target: '.image-grid div:nth-child(1)',
+        textAlign: 'center',
+        title: 'Our awesome projects',
       },
       {
-        content: "Change the world, obviously",
+        content: 'Change the world, obviously',
         disableCloseOnEsc: true,
         disableOverlayClicks: true,
-        placement: "bottom",
-        target: ".image-grid div:nth-child(2)",
-        title: "Our Mission"
+        placement: 'bottom',
+        target: '.image-grid div:nth-child(2)',
+        title: 'Our Mission'
       },
       {
-        content: "Special stuff just for you!",
-        placement: "top",
-        target: ".image-grid div:nth-child(4)",
-        title: "The good stuff"
+        content: 'Special stuff just for you!',
+        placement: 'top',
+        target: '.image-grid div:nth-child(4)',
+        title: 'The good stuff'
       },
       {
         content: (
@@ -180,30 +179,20 @@ class Custom extends Component {
             </svg>
           </div>
         ),
-        target: ".image-grid div:nth-child(5)",
-        placement: "right",
-        title: "We are the people"
+        target: '.image-grid div:nth-child(5)',
+        placement: 'right',
+        title: 'We are the people',
       }
     ]
   };
   helpers = {};
 
-  static propTypes = {
-    joyride: PropTypes.shape({
-      callback: PropTypes.func
-    })
-  };
-
-  static defaultProps = {
-    joyride: {}
-  };
-
-  getHelpers = helpers => {
+  getHelpers = (helpers) => {
     this.helpers = helpers;
     window.helpers = helpers;
   };
 
-  handleSelect = option => {
+  handleSelect = (option) => {
     this.setState({ locale: option.value });
   };
 
@@ -212,16 +201,15 @@ class Custom extends Component {
   };
 
   handleJoyrideCallback = data => {
-    const { joyride } = this.props;
-    const { type } = data;
+    const { status, type } = data;
 
-    if (typeof joyride.callback === "function") {
-      joyride.callback(data);
-    } else {
-      console.group(type);
-      console.log(data); //eslint-disable-line no-console
-      console.groupEnd();
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      this.setState({ run: false });
     }
+
+    console.groupCollapsed(type);
+    console.log(data); //eslint-disable-line no-console
+    console.groupEnd();
   };
 
   render() {
@@ -232,74 +220,35 @@ class Custom extends Component {
         <Wrapper>
           <Selector>
             <Select
-              placeholder={
-                <Option>
-                  <Icon /> Select your language
-                </Option>
-              }
+              placeholder={<Option><Icon /> Select your language</Option>}
               onChange={this.handleSelect}
               options={[
-                {
-                  value: "en",
-                  label: (
-                    <Option>
-                      <Icon /> English
-                    </Option>
-                  )
-                },
-                {
-                  value: "es",
-                  label: (
-                    <Option>
-                      <Icon /> Español
-                    </Option>
-                  )
-                },
-                {
-                  value: "de",
-                  label: (
-                    <Option>
-                      <Icon /> Deutsch
-                    </Option>
-                  )
-                },
-                {
-                  value: "fr",
-                  label: (
-                    <Option>
-                      <Icon /> Français
-                    </Option>
-                  )
-                }
+                { value: 'en', label: <Option><Icon /> English</Option> },
+                { value: 'es', label: <Option><Icon /> Español</Option> },
+                { value: 'de', label: <Option><Icon /> Deutsch</Option> },
+                { value: 'fr', label: <Option><Icon /> Français</Option> },
               ]}
             />
-            <button onClick={this.handleClickRestart}>
-              <FormattedMessage id="restart" />
-            </button>
+            <button onClick={this.handleClickRestart}><FormattedMessage id="restart" /></button>
           </Selector>
           <ReactJoyride
-            run={run}
-            steps={steps}
+            beaconComponent={BeaconComponent}
+            callback={this.handleJoyrideCallback}
             getHelpers={this.getHelpers}
+            run={run}
             scrollToFirstStep
             showSkipButton
-            beaconComponent={BeaconComponent}
+            steps={steps}
             tooltipComponent={Tooltip}
             styles={{
               options: {
-                arrowColor: "#DAA588",
+                arrowColor: '#DAA588',
                 zIndex: 2000000
               },
               overlay: {
-                backgroundColor: "rgba(79, 46, 8, 0.5)"
+                backgroundColor: 'rgba(79, 46, 8, 0.5)'
               }
             }}
-            floaterProps={{
-              wrapperOptions: {
-                offset: -15
-              }
-            }}
-            callback={this.handleJoyrideCallback}
             {...this.props.joyride}
           />
           <Grid />

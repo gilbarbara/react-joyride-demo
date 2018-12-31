@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import ReactJoyride, { ACTIONS, EVENTS } from "react-joyride";
-import Modal from "react-modal";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import ReactJoyride, { STATUS } from 'react-joyride';
+import Modal from 'react-modal';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -33,30 +32,29 @@ const Button = styled.button`
 
 class ModalDemo extends Component {
   state = {
-    continuous: true,
     modalIsOpen: false,
     run: false,
     steps: [
       {
-        content: "Our awesome projects",
-        placement: "bottom",
-        target: ".ReactModal__Content button:nth-of-type(1)",
-        textAlign: "center"
+        content: 'Our awesome projects',
+        placement: 'bottom',
+        target: '.ReactModal__Content button:nth-of-type(1)',
+        textAlign: 'center'
       },
       {
         content:
-          "Can be advanced by clicking an element through the overlay hole.",
+          'Can be advanced by clicking an element through the overlay hole.',
         disableCloseOnEsc: true,
         disableOverlayClicks: true,
-        placement: "bottom",
-        target: ".ReactModal__Content button:nth-of-type(2)",
-        title: "Our Mission"
+        placement: 'bottom',
+        target: '.ReactModal__Content button:nth-of-type(2)',
+        title: 'Our Mission'
       },
       {
-        content: "This step tests what happens when a target is missing",
-        target: ".ReactModal__Content button:nth-of-type(3)",
-        title: "Unmounted target",
-        placement: "bottom"
+        content: 'This step tests what happens when a target is missing',
+        target: '.ReactModal__Content button:nth-of-type(3)',
+        title: 'Unmounted target',
+        placement: 'bottom'
       },
       {
         content: (
@@ -79,21 +77,10 @@ class ModalDemo extends Component {
             </svg>
           </div>
         ),
-        target: ".ReactModal__Content button:nth-of-type(4)",
-        placement: "bottom"
+        target: '.ReactModal__Content button:nth-of-type(4)',
+        placement: 'bottom'
       }
-    ],
-    stepIndex: 0
-  };
-
-  static propTypes = {
-    joyride: PropTypes.shape({
-      callback: PropTypes.func
-    })
-  };
-
-  static defaultProps = {
-    joyride: {}
+    ]
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -109,29 +96,16 @@ class ModalDemo extends Component {
     });
   };
 
-  handleJoyrideCallback = (data: ReactJoyride.CallbackProps) => {
-    const { joyride } = this.props;
-    const { action, index, type } = data;
-    let stepIndex = this.state.stepIndex;
+  handleJoyrideCallback = (data) => {
+    const { status, type } = data;
 
-    if (type === EVENTS.STEP_AFTER) {
-      // Update state to advance the tour
-      stepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
-    } else if (type === EVENTS.TOOLTIP_CLOSE) {
-      stepIndex = index + 1;
-    } else if (type === EVENTS.TARGET_NOT_FOUND) {
-      stepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      this.setState({ run: false });
     }
 
-    this.setState({ stepIndex });
-
-    if (typeof joyride.callback === "function") {
-      joyride.callback(data);
-    } else {
-      console.group(type);
-      console.log(data); //eslint-disable-line no-console
-      console.groupEnd();
-    }
+    console.groupCollapsed(type);
+    console.log(data); //eslint-disable-line no-console
+    console.groupEnd();
   };
 
   openModal = () => {
@@ -154,32 +128,30 @@ class ModalDemo extends Component {
   };
 
   render() {
-    const { modalIsOpen } = this.state;
-    const joyrideProps = {
-      ...this.state,
-      ...this.props.joyride
-    };
+    const { modalIsOpen, run, steps } = this.state;
 
     const customStyles = {
       content: {
-        height: "40%",
-        textAlign: "center"
+        height: '40%',
+        textAlign: 'center'
       }
     };
 
     return (
       <Wrapper>
         <ReactJoyride
-          showSkipButton
-          {...joyrideProps}
           callback={this.handleJoyrideCallback}
+          continuous
+          run={run}
+          showSkipButton
+          steps={steps}
           styles={{
             options: {
-              arrowColor: "#e3ffeb",
-              backgroundColor: "#e3ffeb",
-              primaryColor: "#000",
-              textColor: "#004a14",
-              overlayColor: "rgba(79, 26, 0, 0.4)"
+              arrowColor: '#e3ffeb',
+              backgroundColor: '#e3ffeb',
+              primaryColor: '#000',
+              textColor: '#004a14',
+              overlayColor: 'rgba(79, 26, 0, 0.4)',
             }
           }}
         />

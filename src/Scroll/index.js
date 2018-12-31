@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Joyride from "react-joyride";
+import ReactJoyride from "react-joyride";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -33,8 +32,6 @@ const Scroller = styled.div`
 
 class ScrollDemo extends Component {
   state = {
-    continuous: true,
-    disableOverlayClicks: true,
     modalIsOpen: false,
     run: true,
     steps: [
@@ -86,16 +83,6 @@ class ScrollDemo extends Component {
     ]
   };
 
-  static propTypes = {
-    joyride: PropTypes.shape({
-      callback: PropTypes.func
-    })
-  };
-
-  static defaultProps = {
-    joyride: {}
-  };
-
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.modalIsOpen && this.state.modalIsOpen) {
       this.start();
@@ -103,23 +90,15 @@ class ScrollDemo extends Component {
   }
 
   start = () => {
-    this.setState({
-      run: true,
-      stepIndex: 0
-    });
+    this.setState({ run: true });
   };
 
   handleJoyrideCallback = data => {
-    const { joyride } = this.props;
     const { type } = data;
 
-    if (typeof joyride.callback === "function") {
-      joyride.callback(data);
-    } else {
-      console.group(type);
-      console.log(data); //eslint-disable-line no-console
-      console.groupEnd();
-    }
+    console.groupCollapsed(type);
+    console.log(data); //eslint-disable-line no-console
+    console.groupEnd();
   };
 
   renderContent() {
@@ -310,17 +289,17 @@ class ScrollDemo extends Component {
   }
 
   render() {
-    const joyrideProps = {
-      ...this.state,
-      ...this.props.joyride
-    };
+    const { run, steps } = this.state;
 
     return (
       <Wrapper>
-        <Joyride
+        <ReactJoyride
+          run={run}
+          steps={steps}
+          continuous
+          disableOverlayClicks
           scrollToFirstStep
           showSkipButton
-          {...joyrideProps}
           callback={this.handleJoyrideCallback}
         />
         <Scroller className="app__scroller">{this.renderContent()}</Scroller>

@@ -1,31 +1,56 @@
 {
-  "name": "react-joyride",
-  "version": "0.0.293",
-  "description": "Demo for V2",
-  "keywords": [],
-  "homepage": "https://codesandbox.io/s/1oppqow7l3",
+  "name": "react-joyride-demo",
+  "version": "2.0.0",
+  "description": "React Joyride Demo",
+  "author": "Gil Barbara <gilbarbara@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gilbarbara/react-joyride-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gilbarbara/react-joyride-demo/issues"
+  },
+  "homepage": "https://codesandbox.io/s/github/gilbarbara/react-joyride-demo",
+  "keywords": [
+    "react",
+    "react-component",
+    "tooltips",
+    "joyride",
+    "walkthroughs",
+    "tour"
+  ],
+  "license": "MIT",
   "main": "index.js",
   "dependencies": {
-    "disable-scroll": "0.4.1",
-    "is-plain-object": "2.0.4",
-    "react": "16.7.0",
-    "react-dom": "16.7.0",
-    "react-floater": "0.6.2",
-    "react-intl": "2.7.2",
-    "react-joyride": "2.0.0-rc.1",
-    "react-modal": "3.8.1",
-    "react-responsive-carousel": "3.1.45",
-    "react-router-dom": "4.3.1",
-    "react-select": "2.2.0",
-    "styled-components": "4.1.3"
+    "grommet": "^2.2.1",
+    "react": "^16.7.0",
+    "react-burger-menu": "^2.5.4",
+    "react-dom": "^16.7.0",
+    "react-intl": "^2.7.2",
+    "react-joyride": "^2.0.0-rc.1",
+    "react-modal": "^3.8.1",
+    "react-responsive-carousel": "^3.1.45",
+    "react-router-dom": "^4.3.1",
+    "react-select": "^2.2.0",
+    "styled-components": "^4.1.3",
+    "styled-icons": "^6.2.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.0"
+    "react-scripts": "2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
