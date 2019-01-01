@@ -15,6 +15,12 @@ const Logo = styled(ReactComponent)`
     width: 100%;
 `;
 
+const Subtitle = styled.p`
+    font-size: ${({ breakpoint }) => `${breakpoint === 'lg' ? '35px' : '20px'}`};
+    margin: 0 auto;
+    width: 100%;
+`;
+
 class Basic extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +35,7 @@ class Basic extends Component {
             </React.Fragment>
           ),
           placement: 'center',
-          locale: { skip: 'S-K-I-P' },
+          locale: { skip: <strong>S-K-I-P</strong> },
           target: 'body',
         },
         {
@@ -37,7 +43,7 @@ class Basic extends Component {
           placement: 'bottom',
           styles: {
             options: {
-              width: 900
+              width: 300
             }
           },
           target: '.demo__projects h2',
@@ -56,7 +62,7 @@ class Basic extends Component {
         {
           content: (
             <div>
-              <h3>Or event a SVG icon</h3>
+              <h3>All about us</h3>
               <svg
                 width="50px"
                 height="50px"
@@ -128,8 +134,8 @@ class Basic extends Component {
 
         <div className="demo__section demo__hero">
           <div>
-            <Logo breakpoint={breakpoint}/>
-            <p>Create guided tours for your apps</p>
+            <Logo breakpoint={breakpoint} />
+            <Subtitle breakpoint={breakpoint}>Create guided tours for your apps</Subtitle>
             <button onClick={this.handleClickStart}>Start</button>
           </div>
         </div>

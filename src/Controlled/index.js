@@ -15,7 +15,7 @@ import Connections from './Connections';
 import Users from './Users';
 
 const Wrapper = styled(Grommet)`
-  background-color: #343434;
+  background-color: #3C3F41;
   color: #fff;
   padding-bottom: 50px;
   height: auto;
@@ -51,10 +51,16 @@ const Hamburger = styled(Button)`
 `;
 
 class Controlled extends Component {
+  calendar;
+  connections;
+  growth;
+  menu;
+  sidebar;
+  users;
+
   constructor(props) {
     super(props);
     this.state = {
-      breakpoint: this.getScreenSize(),
       run: false,
       sidebarOpen: false,
       steps: [],
@@ -63,12 +69,11 @@ class Controlled extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-
     this.setState({
       run: true,
       steps: [
         {
+          target: this.menu,
           content: (
             <div>
               You can interact with your own components through the spotlight.<br />
@@ -76,7 +81,6 @@ class Controlled extends Component {
             </div>
           ),
           textAlign: 'center',
-          target: this.menu,
           placement: 'bottom',
           disableBeacon: true,
           disableOverlayClose: true,
@@ -88,46 +92,46 @@ class Controlled extends Component {
               zIndex: 10000
             }
           },
-          title: 'Navigation'
+          title: 'Menu'
         },
         {
+          target: this.sidebar,
           content: 'This is our sidebar, you can find everything you need here',
           textAlign: 'left',
-          target: this.sidebar,
           placement: 'right',
           styles: {
             options: {
               zIndex: 10000
             }
           },
-          title: 'Navigation'
+          title: 'Sidebar'
         },
         {
-          content: 'These are our super awesome projects!',
-          textAlign: 'center',
           target: this.calendar,
+          content: 'Check the availability of the team!',
+          textAlign: 'center',
           placement: 'bottom',
           styles: {
             options: {
               zIndex: 10000
             }
           },
-          title: 'The projects'
+          title: 'The schedule'
         },
         {
-          title: 'Our Mission',
+          target: this.growth,
           content: (
             <div>
-              You can interact with your own components through the spotlight.
-              <br />
-              Click in the Advance button above.
+              Our rate is off the charts!
             </div>
           ),
-          target: this.growth,
+          title: 'Our Growth',
           placement: 'bottom',
           spotlightClicks: true,
         },
         {
+          target: this.users,
+          placement: 'right',
           content: (
             <div>
               <svg
@@ -147,43 +151,16 @@ class Controlled extends Component {
               </svg>
             </div>
           ),
-          placement: 'right',
-          target: this.users,
-          title: 'We are the people'
+          title: 'Our Users'
         },
         {
-          content: 'Because sometimes you don\'t really need a proper heading',
           target: this.connections,
+          content: 'The awesome connections you have made',
           placement: 'top'
         }
       ]
     });
   }
-
-  getScreenSize = () => {
-    const { innerWidth } = window;
-    let breakpoint = 'xs';
-
-    if (innerWidth >= 1024) {
-      breakpoint = 'lg'
-    }
-    else if (innerWidth >= 768) {
-      breakpoint = 'md'
-    }
-    else if (innerWidth >= 400) {
-      breakpoint = 'sm'
-    }
-
-    return breakpoint;
-  };
-
-  handleResize = () => {
-    clearTimeout(this.debounceTimeout);
-
-    this.debounceTimeout = setTimeout(() => {
-      this.setState({ breakpoint: this.getScreenSize() });
-    }, 250);
-  };
 
   handleClickStart = e => {
     e.preventDefault();
