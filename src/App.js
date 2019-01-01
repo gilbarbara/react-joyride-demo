@@ -38,6 +38,14 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
   getScreenSize = () => {
     const { innerWidth } = window;
     let breakpoint = 'xs';
@@ -53,6 +61,14 @@ class App extends React.Component {
     }
 
     return breakpoint;
+  };
+
+  handleResize = () => {
+    clearTimeout(this.debounceTimeout);
+
+    this.debounceTimeout = setTimeout(() => {
+      this.setState({ breakpoint: this.getScreenSize() });
+    }, 250);
   };
 
   render() {
