@@ -8,9 +8,13 @@ import Carousel from './Carousel';
 import Modal from './Modal';
 import Scroll from './Scroll';
 
+import CodeSandboxEdit from './components/CodeSandboxEdit';
 import Footer from './components/Footer';
+import GitHubRepo from './components/GitHubRepo';
 
 import './App.css';
+
+const { NODE_ENV } = process.env;
 
 class ScrollToTop extends React.Component {
   componentDidUpdate(prevProps) {
@@ -65,6 +69,8 @@ class App extends React.Component {
             <Route path="/modal" component={Modal} />
             <Route path="/scroll" component={Scroll} />
           </Switch>
+          {NODE_ENV === 'production' && <CodeSandboxEdit />}
+          {NODE_ENV === 'production' && <GitHubRepo />}
           <Footer />
         </ScrollRestoration>
       </BrowserRouter>
