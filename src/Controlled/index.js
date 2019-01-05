@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactJoyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import styled from 'styled-components';
+import a11yChecker from 'a11y-checker';
 
 import { grommet } from 'grommet/themes';
 import { Box, Button, Grommet, Heading } from 'grommet';
@@ -40,7 +41,9 @@ const GridBox = styled(Box)`
   }
 `;
 
-const Hamburger = styled(Button)`
+const Hamburger = styled(Button).attrs({
+  role: 'menu'
+})`
   left: 15px;
   position: absolute;
   top: 15px;
@@ -141,6 +144,7 @@ class Controlled extends Component {
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="xMidYMid"
+                aria-hidden="true"
               >
                 <g>
                   <path
@@ -159,6 +163,8 @@ class Controlled extends Component {
           placement: 'top'
         }
       ]
+    }, () => {
+      a11yChecker();
     });
   }
 
@@ -277,8 +283,8 @@ class Controlled extends Component {
             </Box>
           </Box>
         </Menu>
-        <Hamburger plain onClick={this.handleClickOpen} data-name="menu" ref={this.setRef}>
-          <MenuIcon color="#f04" width={32} />
+        <Hamburger plain onClick={this.handleClickOpen} a11yTitle="Menu" data-name="menu" ref={this.setRef}>
+          <MenuIcon aria-hidden="true" color="#f04" width={32} />
         </Hamburger>
         <Main id="innerContainer" as="main">
           <Heading full textAlign="center" style={{ marginTop: 0 }}>DASHBOARD</Heading>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactJoyride from 'react-joyride';
 import styled from 'styled-components';
+import a11yChecker from 'a11y-checker';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -58,6 +59,10 @@ class ScrollDemo extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    a11yChecker();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.modalIsOpen && this.state.modalIsOpen) {
@@ -273,9 +278,7 @@ class ScrollDemo extends Component {
           run={run}
           steps={steps}
           continuous
-          disableOverlayClicks
           scrollToFirstStep
-          showSkipButton
           callback={this.handleJoyrideCallback}
         />
         <Scroller className="app__scroller">{this.renderContent()}</Scroller>

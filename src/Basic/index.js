@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactJoyride, { STATUS } from 'react-joyride';
 import styled from 'styled-components';
+import a11yChecker from 'a11y-checker';
 
 import { ReactComponent } from '../logo.svg';
 
@@ -29,13 +30,9 @@ class Basic extends Component {
       run: false,
       steps: [
         {
-          content: (
-            <React.Fragment>
-              <h2>Let's beign our journey!</h2>
-            </React.Fragment>
-          ),
+          content: (<h2>Let's begin our journey!</h2>),
           placement: 'center',
-          locale: { skip: <strong>S-K-I-P</strong> },
+          locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
           target: 'body',
         },
         {
@@ -91,6 +88,10 @@ class Basic extends Component {
     breakpoint: PropTypes.string.isRequired,
   };
 
+  componentDidMount() {
+    a11yChecker();
+  }
+
   handleClickStart = e => {
     e.preventDefault();
 
@@ -134,7 +135,7 @@ class Basic extends Component {
 
         <div className="demo__section demo__hero">
           <div>
-            <Logo breakpoint={breakpoint} />
+            <Logo aria-hidden={true} breakpoint={breakpoint} />
             <Subtitle breakpoint={breakpoint}>Create guided tours for your apps</Subtitle>
             <button onClick={this.handleClickStart}>Start</button>
           </div>

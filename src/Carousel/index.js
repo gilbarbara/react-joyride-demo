@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactJoyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import { Carousel } from 'react-responsive-carousel';
 import styled from 'styled-components';
+import a11yChecker from 'a11y-checker';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -52,6 +53,10 @@ class CarouselDemo extends Component {
     ],
     stepIndex: 0,
   };
+
+  componentDidMount() {
+    a11yChecker();
+  }
 
   handleClickCarousel = (index) => {
     if (index === 0) {

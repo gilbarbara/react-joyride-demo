@@ -9,7 +9,7 @@ background-color: #f7f7f7;
 
 const CodeSandboxEdit = () => (
   <Wrapper>
-    <a href="https://codesandbox.io/s/github/gilbarbara/react-joyride-demo" className="codesandbox-edit">
+    <a href="https://codesandbox.io/s/github/gilbarbara/react-joyride-demo" className="codesandbox-edit" aria-label="Edit react-joyride on CodeSandbox">
       <img
         alt="Edit react-joyride"
         src="https://codesandbox.io/static/img/play-codesandbox.svg"

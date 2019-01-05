@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="demo__footer">
-      <button>
+      <button aria-label="Footer Menu">
         <span />
       </button>
       <div className="demo__menu">

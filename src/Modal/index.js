@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactJoyride, { STATUS } from 'react-joyride';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+import a11yChecker from 'a11y-checker';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -58,6 +59,10 @@ class ModalDemo extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    a11yChecker();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.modalIsOpen && this.state.modalIsOpen) {

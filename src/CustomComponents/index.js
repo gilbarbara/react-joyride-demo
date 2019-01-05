@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import * as React from 'react';
+import { FormattedMessage, intlShape } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 import ReactJoyride, { STATUS } from 'react-joyride';
 import Select from 'react-select';
+import a11yChecker from 'a11y-checker';
 
 import Icon from './Icon';
 import Intl from './Intl';
@@ -20,6 +21,7 @@ const TooltipBody = styled.div`
   background-color: #daa588;
   min-width: 290px;
   max-width: 420px;
+  position: relative;
 `;
 
 const TooltipContent = styled.div`
@@ -48,6 +50,7 @@ const TooltipFooter = styled.div`
 const Button = styled.button`
   background-color: #e11b0e;
   color: #fff;
+  margin-right: ${props => props.spacer ? 'auto' : 0};
 `;
 
 const Input = styled.input`
@@ -57,35 +60,37 @@ const Input = styled.input`
 
 const Tooltip = ({
   continuous,
+  index,
+  isLastStep,
+  step,
   backProps,
   closeProps,
-  index,
   primaryProps,
-  setTooltipRef,
-  step,
-}) => (
-  <TooltipBody ref={setTooltipRef}>
-    {step.title && <TooltipTitle>{step.title}</TooltipTitle>}
-    {step.content && <TooltipContent>{step.content}</TooltipContent>}
-    <TooltipFooter>
-      {index > 0 && (
-        <Button {...backProps}>
-          <FormattedMessage id="back" />
-        </Button>
-      )}
-      {continuous && (
+  skipProps,
+  tooltipProps
+}) => {
+  return (
+    <TooltipBody {...tooltipProps}>
+      {step.title && <TooltipTitle>{step.title}</TooltipTitle>}
+      {step.content && <TooltipContent>{step.content}</TooltipContent>}
+      <TooltipFooter>
+        {!isLastStep && (
+          <Button {...skipProps} spacer={true}>
+            <FormattedMessage id="skip" />
+          </Button>
+        )}
+        {index > 0 && (
+          <Button {...backProps}>
+            <FormattedMessage id="back" />
+          </Button>
+        )}
         <Button {...primaryProps}>
-          <FormattedMessage id="next" />
+          <FormattedMessage id={continuous ? 'next' : 'close'} />
         </Button>
-      )}
-      {!continuous && (
-        <Button {...closeProps}>
-          <FormattedMessage id="close" />
-        </Button>
-      )}
-    </TooltipFooter>
-  </TooltipBody>
-);
+      </TooltipFooter>
+    </TooltipBody>
+  )
+};
 
 const pulse = keyframes`
   0% {
@@ -98,7 +103,7 @@ const pulse = keyframes`
   }
 `;
 
-const Beacon = styled.span`
+const Beacon = styled.button`
   animation: ${pulse} 1s ease-in-out infinite;
   background-color: rgba(255, 27, 14, 0.6);
   border-radius: 50%;
@@ -124,11 +129,12 @@ const Option = styled.div`
   }
 `;
 
-const BeaconComponent = props => <Beacon {...props} />;
+const IntlWrapper = ({ children, locale }) => (
+  <Intl locale={locale}>{children}</Intl>
+);
 
-class Custom extends Component {
+class Custom extends React.Component {
   state = {
-    locale: 'en',
     run: true,
     steps: [
       {
@@ -136,7 +142,7 @@ class Custom extends Component {
           <div>
             <h5 style={{ marginTop: 0 }}>Weekly magic on your inbox</h5>
             <Input type="email" placeholder="Type your email" />
-            <button>YES</button>
+            <Button>SEND</Button>
           </div>
         ),
         placement: 'bottom',
@@ -169,6 +175,7 @@ class Custom extends Component {
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="xMidYMid"
+              role="img"
             >
               <g>
                 <path
@@ -187,17 +194,25 @@ class Custom extends Component {
   };
   helpers = {};
 
-  getHelpers = (helpers) => {
-    this.helpers = helpers;
-    window.helpers = helpers;
+  static contextTypes = {
+    intl: intlShape
   };
 
-  handleSelect = (option) => {
-    this.setState({ locale: option.value });
+  componentDidMount() {
+    a11yChecker();
+  }
+
+  setHelpers = (helpers) => {
+    this.helpers = helpers;
   };
 
   handleClickRestart = () => {
     this.helpers.reset(true);
+  };
+
+  handleSelect = (option) => {
+    const { setLocale } = this.props;
+    setLocale(option.value);
   };
 
   handleJoyrideCallback = data => {
@@ -213,49 +228,67 @@ class Custom extends Component {
   };
 
   render() {
-    const { locale, run, steps } = this.state;
+    const { run, steps } = this.state;
+    const { intl: { messages } } = this.context;
 
     return (
-      <Intl locale={locale}>
-        <Wrapper>
-          <Selector>
-            <Select
-              placeholder={<Option><Icon /> Select your language</Option>}
-              onChange={this.handleSelect}
-              options={[
-                { value: 'en', label: <Option><Icon /> English</Option> },
-                { value: 'es', label: <Option><Icon /> Español</Option> },
-                { value: 'de', label: <Option><Icon /> Deutsch</Option> },
-                { value: 'fr', label: <Option><Icon /> Français</Option> },
-              ]}
-            />
-            <button onClick={this.handleClickRestart}><FormattedMessage id="restart" /></button>
-          </Selector>
-          <ReactJoyride
-            beaconComponent={BeaconComponent}
-            callback={this.handleJoyrideCallback}
-            getHelpers={this.getHelpers}
-            run={run}
-            scrollToFirstStep
-            showSkipButton
-            steps={steps}
-            tooltipComponent={Tooltip}
-            styles={{
-              options: {
-                arrowColor: '#DAA588',
-                zIndex: 2000000
-              },
-              overlay: {
-                backgroundColor: 'rgba(79, 46, 8, 0.5)'
-              }
-            }}
-            {...this.props.joyride}
+      <Wrapper>
+        <Selector>
+          <Select
+            placeholder={<Option><Icon /> Select your language</Option>}
+            onChange={this.handleSelect}
+            options={[
+              { value: 'en', label: <Option><Icon /> English</Option> },
+              { value: 'es', label: <Option><Icon /> Español</Option> },
+              { value: 'de', label: <Option><Icon /> Deutsch</Option> },
+              { value: 'fr', label: <Option><Icon /> Français</Option> },
+            ]}
           />
-          <Grid />
-        </Wrapper>
-      </Intl>
+          <button onClick={this.handleClickRestart}><FormattedMessage id="restart" /></button>
+        </Selector>
+        <ReactJoyride
+          run={run}
+          steps={steps}
+          beaconComponent={Beacon}
+          callback={this.handleJoyrideCallback}
+          getHelpers={this.setHelpers}
+          locale={messages}
+          scrollToFirstStep
+          showSkipButton
+          tooltipComponent={Tooltip}
+          styles={{
+            options: {
+              arrowColor: '#DAA588',
+              zIndex: 2000000
+            },
+            overlay: {
+              backgroundColor: 'rgba(79, 46, 8, 0.5)'
+            }
+          }}
+          {...this.props.joyride}
+        />
+        <Grid />
+      </Wrapper>
     );
   }
 }
 
-export default Custom;
+export default class CustomComponent extends React.Component {
+  state = {
+    locale: 'en',
+  };
+
+  setLocale = (locale) => {
+    this.setState({ locale });
+  };
+
+  render() {
+    const { locale } = this.state;
+
+    return (
+      <IntlWrapper locale={locale}>
+        <Custom setLocale={this.setLocale} />
+      </IntlWrapper>
+    );
+  }
+}
