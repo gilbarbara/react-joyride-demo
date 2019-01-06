@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactJoyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import a11yChecker from 'a11y-checker';
 
 import { grommet } from 'grommet/themes';
@@ -276,10 +277,11 @@ class Controlled extends Component {
         >
           <Box background="white" fill={true} pad="medium" data-name="sidebar" ref={this.setRef}>
             <Box>
-              <a id="home" className="menu-item" href="/">Home</a>
-              <a id="about" className="menu-item" href="/about">About</a>
-              <a id="contact" className="menu-item" href="/contact">Contact</a>
-              <a onClick={this.showSettings} className="menu-item--small" href="/settings">Settings</a>
+              <Link className="menu-item" to="/">Home</Link>
+              <Link className="menu-item" to="/controlled">Controlled</Link>
+              <Link className="menu-item" to="/custom">Custom</Link>
+              <Link className="menu-item" to="/modal">Modal</Link>
+              <Link className="menu-item" to="/scroll">Scroll</Link>
             </Box>
           </Box>
         </Menu>

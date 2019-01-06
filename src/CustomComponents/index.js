@@ -13,8 +13,23 @@ const Wrapper = styled.div`
   background-color: #ccc;
   box-sizing: border-box;
   min-height: 100vh;
-	padding-bottom: 50px;
+	padding: 20px 0 70px;
 	position: relative;
+`;
+
+const Heading = styled.h1`
+  margin: 0;
+  text-align: center;
+`;
+
+const SubHeading = styled.h3`
+  color: #f04;
+  text-align: center;
+  
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
 `;
 
 const TooltipBody = styled.div`
@@ -115,7 +130,6 @@ const Beacon = styled.button`
 const Selector = styled.div`
   margin-left: auto;
   margin-right: auto;
-  padding-top: 15px;
   text-align: center;
   width: 250px;
 `;
@@ -235,6 +249,18 @@ class Custom extends React.Component {
 
     return (
       <Wrapper>
+        <Heading>You can use custom components!</Heading>
+        <SubHeading>
+          (using{' '}
+          <a
+            href="https://github.com/styled-components/styled-components"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open styled-components in a new window"
+          >
+            styled-components
+          </a>)
+        </SubHeading>
         <Selector>
           <Select
             placeholder={<Option><Icon /> Select your language</Option>}

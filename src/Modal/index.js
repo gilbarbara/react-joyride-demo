@@ -15,15 +15,33 @@ const Wrapper = styled.div`
       #465298 20px
     );
   display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
+  padding: 10px;
   width: 100vw;
 `;
 
-const Button = styled.button`
-  background-color: #008e26;
+const Heading = styled.h1`
   color: #fff;
-  margin-bottom: 8px;
+  margin: 0;
+  text-align: center;
+`;
+
+const SubHeading = styled.h3`
+  color: #fff;
+  text-align: center;
+  
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+`;
+
+const Button = styled.button`
+  background-color: #f04;
+  color: #fff;
+  margin-bottom: 16px;
   padding: 8px;
 
   + button {
@@ -113,7 +131,7 @@ class ModalDemo extends Component {
 
     const customStyles = {
       content: {
-        height: '40%',
+        maxHeight: '70%',
         textAlign: 'center'
       }
     };
@@ -136,6 +154,18 @@ class ModalDemo extends Component {
             }
           }}
         />
+        <Heading>It works with modals</Heading>
+        <SubHeading>
+          (using{' '}
+          <a
+            href="https://github.com/reactjs/react-modal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open react-modal in a new window"
+          >
+            react-modal
+          </a>)
+        </SubHeading>
         <Button onClick={this.openModal}>Open Modal</Button>
         <Modal
           ariaHideApp={false}

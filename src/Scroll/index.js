@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   align-items: center;
   background-color: #ccc;
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   justify-content: center;
   width: 100vw;
@@ -31,13 +32,18 @@ const Scroller = styled.div`
   padding: 15px;
 `;
 
+const Heading = styled.h1`
+  color: #f04;
+  margin: 0 0 30px;
+`;
+
 class ScrollDemo extends Component {
   state = {
     modalIsOpen: false,
     run: true,
     steps: [
       {
-        target: '.app__scroller h1',
+        target: '.app__scroller h2',
         content: 'The latest version of React!',
         placement: 'bottom',
         textAlign: 'center'
@@ -85,7 +91,7 @@ class ScrollDemo extends Component {
   renderContent() {
     return (
       <div>
-        <h1 style={{ marginTop: 0 }}>React 16</h1>
+        <h2 style={{ marginTop: 0 }}>React 16</h2>
         <p>
           We’re excited to announce the release of React v16.0! Among the
           changes are some long-standing feature requests, including fragments,
@@ -281,6 +287,7 @@ class ScrollDemo extends Component {
           scrollToFirstStep
           callback={this.handleJoyrideCallback}
         />
+        <Heading>Works with custom scrolling parents!</Heading>
         <Scroller className="app__scroller">{this.renderContent()}</Scroller>
       </Wrapper>
     );

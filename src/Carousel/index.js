@@ -22,13 +22,36 @@ const CarouselWrapper = styled.div`
   height: ${window.innerWidth / ratio}px;
 `;
 
+const Heading = styled.h3`
+  margin: 0;
+`;
+
+const Link = styled.a`
+  color: inherit;
+  text-decoration: underline;
+`;
+
 class CarouselDemo extends Component {
   state = {
     run: true,
     steps: [
       {
         target: '.app__carousel',
-        content: 'This is an amazing photo',
+        content: (
+          <React.Fragment>
+            <Heading>You can control external widgets</Heading>
+            <h4>(using{' '}
+              <Link
+                href="https://github.com/leandrowd/react-responsive-carousel/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open react-modal in a new window"
+              >
+                react-responsive-carousel
+              </Link>)
+            </h4>
+          </React.Fragment>
+        ),
         textAlign: 'center',
         disableBeacon: true,
       },
