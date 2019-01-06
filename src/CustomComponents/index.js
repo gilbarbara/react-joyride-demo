@@ -54,7 +54,7 @@ const Button = styled.button`
 `;
 
 const Input = styled.input`
-  padding: 1.2rem;
+  padding: 0.5rem;
   width: 75%;
 `;
 
@@ -139,11 +139,13 @@ class Custom extends React.Component {
     steps: [
       {
         content: (
-          <div>
+          <React.Fragment>
             <h5 style={{ marginTop: 0 }}>Weekly magic on your inbox</h5>
-            <Input type="email" placeholder="Type your email" />
-            <Button>SEND</Button>
-          </div>
+            <div style={{ whiteSpace: 'nowrap' }}>
+              <Input type="email" placeholder="Type your email" />
+              <Button>SEND</Button>
+            </div>
+          </React.Fragment>
         ),
         placement: 'bottom',
         placementBeacon: 'top',
