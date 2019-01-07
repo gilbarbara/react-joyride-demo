@@ -4,22 +4,22 @@ import ReactJoyride, { STATUS } from 'react-joyride';
 import styled from 'styled-components';
 import a11yChecker from 'a11y-checker';
 
-import { ReactComponent } from '../logo.svg';
+import { ReactComponent } from '../media/logo.svg';
 
 import './styles.css';
 
 const Logo = styled(ReactComponent)`
-    height: auto;
-    margin-bottom: 10px;
-    max-height: 100%;
-    max-width: ${({ breakpoint }) => `${breakpoint === 'lg' ? '500px' : '290px'}`};
-    width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  max-height: 100%;
+  max-width: ${({ breakpoint }) => `${breakpoint === 'lg' ? '500px' : '290px'}`};
+  width: 100%;
 `;
 
 const Subtitle = styled.p`
-    font-size: ${({ breakpoint }) => `${breakpoint === 'lg' ? '35px' : '20px'}`};
-    margin: 0 auto;
-    width: 100%;
+  font-size: ${({ breakpoint }) => `${breakpoint === 'lg' ? '35px' : '20px'}`};
+  margin: 0 auto;
+  width: 100%;
 `;
 
 class Basic extends Component {
@@ -30,7 +30,7 @@ class Basic extends Component {
       run: false,
       steps: [
         {
-          content: (<h2>Let's begin our journey!</h2>),
+          content: <h2>Let's begin our journey!</h2>,
           placement: 'center',
           locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
           target: 'body',
@@ -48,11 +48,12 @@ class Basic extends Component {
         },
         {
           title: 'Our Mission',
-          content:
+          content: (
             <div>
-              You can render anything here.<br />
+              You can render anything!<br />
               <h3>Like this H3 title</h3>
-            </div>,
+            </div>
+          ),
           target: '.demo__how-it-works h2',
           placement: 'top'
         },

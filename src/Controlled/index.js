@@ -8,8 +8,8 @@ import { grommet } from 'grommet/themes';
 import { Box, Button, Grommet, Heading } from 'grommet';
 import Menu from 'react-burger-menu/lib/menus/push';
 
-import { Times } from 'styled-icons/fa-solid/Times';
-import { Menu as MenuIcon } from 'styled-icons/material/Menu';
+import { ReactComponent as Times } from '../media/times.svg';
+import { ReactComponent as MenuIcon } from '../media/menu.svg';
 
 import Growth from './Growth';
 import Calendar from './Calendar';
@@ -17,7 +17,7 @@ import Connections from './Connections';
 import Users from './Users';
 
 const Wrapper = styled(Grommet)`
-  background-color: #3C3F41;
+  background-color: #3c3f41;
   color: #fff;
   padding-bottom: 50px;
   height: auto;
@@ -28,7 +28,7 @@ const Main = styled(Box)`
   margin: 0 auto;
   max-width: 1280px;
   padding: 15px;
-  
+
   @media (min-width: 768px) {
     padding: 30px;
   }
@@ -48,7 +48,7 @@ const Hamburger = styled(Button).attrs({
   left: 15px;
   position: absolute;
   top: 15px;
-  
+
   @media (min-width: 768px) {
     left: 30px;
   }
@@ -184,7 +184,7 @@ class Controlled extends Component {
 
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
       // Need to set our running state to false, so we can restart if we click start again.
-      this.setState({ run: false, stepIndex: 0, });
+      this.setState({ run: false, stepIndex: 0 });
     }
     else if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
       const stepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
@@ -244,7 +244,7 @@ class Controlled extends Component {
     this.setState({ sidebarOpen: isOpen });
   };
 
-  setRef = (el) => {
+  setRef = el => {
     if (!el) return;
     const { dataset } = el;
 
@@ -273,7 +273,7 @@ class Controlled extends Component {
           isOpen={sidebarOpen}
           onStateChange={this.handleStateChange}
           customBurgerIcon={false}
-          customCrossIcon={<Times color="#f04" width={16} />}
+          customCrossIcon={<Times color="#f04" />}
         >
           <Box background="white" fill={true} pad="medium" data-name="sidebar" ref={this.setRef}>
             <Box>
