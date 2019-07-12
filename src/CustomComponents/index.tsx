@@ -197,7 +197,7 @@ class Custom extends React.Component<Props, State> {
             </Row>
           </React.Fragment>
         ),
-        placementBeacon: 'top' as const,
+        placementBeacon: 'top' as 'top',
         target: '.image-grid div:nth-child(1)',
         textAlign: 'center',
         title: 'Our awesome projects',
@@ -211,7 +211,7 @@ class Custom extends React.Component<Props, State> {
       },
       {
         content: 'Special stuff just for you!',
-        placement: 'top' as const,
+        placement: 'top' as 'top',
         target: '.image-grid div:nth-child(4)',
         title: 'The good stuff',
       },
@@ -235,7 +235,7 @@ class Custom extends React.Component<Props, State> {
             </svg>
           </div>
         ),
-        placement: 'right' as const,
+        placement: 'right' as 'right',
         target: '.image-grid div:nth-child(5)',
         title: 'We are the people',
       },

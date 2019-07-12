@@ -17,13 +17,13 @@ const Node = ({ id, ...rest }: IObject) => (
 );
 
 const connection = (fromTarget: string, toTarget: string, { color, ...rest }: IObject = {}) => ({
-  anchor: 'vertical' as const,
+  anchor: 'vertical' as 'vertical',
   color: color || 'accent-1',
   fromTarget,
   round: true,
   thickness: 'xsmall',
   toTarget,
-  type: 'rectilinear' as const,
+  type: 'rectilinear' as 'rectilinear',
   ...rest,
 });
 

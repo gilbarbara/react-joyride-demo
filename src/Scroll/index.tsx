@@ -49,23 +49,23 @@ export default class ScrollDemo extends Component<any, State> {
     steps: [
       {
         content: 'The latest version of React!',
-        placement: 'bottom' as const,
+        placement: 'bottom' as 'bottom',
         target: '.app__scroller h2',
         textAlign: 'center',
       },
       {
         content: 'Nobody likes errors! 🤬',
-        placement: 'top' as const,
+        placement: 'top' as 'top',
         target: '.app__scroller h3:nth-of-type(2)',
       },
       {
         content: 'Yay! Portals are awesome',
-        placement: 'top' as const,
+        placement: 'top' as 'top',
         target: '.app__scroller h3:nth-of-type(3)',
       },
       {
         content: 'SSR is supported',
-        placement: 'top' as const,
+        placement: 'top' as 'top',
         target: '.app__scroller h3:nth-of-type(4)',
       },
     ],
