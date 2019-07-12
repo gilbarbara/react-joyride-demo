@@ -21,9 +21,12 @@
   "license": "MIT",
   "dependencies": {
     "a11y-checker": "^2.2.1",
+    "core-js": "^3.1.4",
     "grommet": "^2.7.3",
+    "polyfill-array-includes": "^2.0.0",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
     "react-burger-menu": "^2.6.10",
     "react-dom": "^16.8.6",
     "react-intl": "^2.9.0",
@@ -31,8 +34,11 @@
     "react-modal": "^3.8.2",
     "react-responsive-carousel": "^3.1.49",
     "react-router-dom": "^5.0.1",
+    "react-scripts": "^3.0.1",
     "react-select": "^3.0.4",
-    "styled-components": "^4.3.2"
+    "regenerator-runtime": "^0.13.2",
+    "styled-components": "^4.3.2",
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
@@ -45,15 +51,9 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/react-select": "^3.0.0",
     "@types/styled-components": "^4.1.18",
-    "core-js": "^3.1.4",
-    "polyfill-array-includes": "^2.0.0",
-    "react-app-polyfill": "^1.0.1",
-    "react-scripts": "^3.0.1",
-    "regenerator-runtime": "^0.13.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
-    "typescript": "^3.5.3"
+    "tslint-react": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
