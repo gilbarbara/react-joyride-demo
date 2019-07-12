@@ -23,6 +23,8 @@
   align-items: center;
   background-color: #ff0044;
   color: #fff;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .demo__hero button:first-of-type {
@@ -35,12 +37,17 @@
 }
 
 .demo__hero > div {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
   max-width: 60rem;
   text-align: center;
 }
 
 .demo__projects {
-  background-color: #FFB600;
+  background-color: #ffb600;
   color: #fff;
 }
 
@@ -50,6 +57,6 @@
 }
 
 .demo__about {
-  background-color: #00BCFF;
+  background-color: #00bcff;
   color: #000;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Basic from './Basic';
 import Controlled from './Controlled';
@@ -11,59 +11,51 @@ import Scroll from './Scroll';
 import CodeSandboxEdit from './components/CodeSandboxEdit';
 import Footer from './components/Footer';
 import GitHubRepo from './components/GitHubRepo';
+import ScrollToTop from './components/ScrollToTop';
 
 import './App.css';
 
-const { NODE_ENV } = process.env;
-
-class ScrollToTop extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      window.scrollTo(0, 0)
-    }
-  }
-
-  render() {
-    return this.props.children
-  }
+interface State {
+  breakpoint: string;
 }
 
-const ScrollRestoration = withRouter(ScrollToTop);
+const { NODE_ENV } = process.env;
 
-class App extends React.Component {
-  constructor(props) {
+class App extends React.Component<any, State> {
+  private debounceTimeout?: number;
+
+  constructor(props: any) {
     super(props);
+
     this.state = {
       breakpoint: this.getScreenSize(),
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     window.addEventListener('resize', this.handleResize);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     window.addEventListener('resize', this.handleResize);
   }
 
-  getScreenSize = () => {
+  private getScreenSize = () => {
     const { innerWidth } = window;
     let breakpoint = 'xs';
 
     if (innerWidth >= 1024) {
-      breakpoint = 'lg'
-    }
-    else if (innerWidth >= 768) {
-      breakpoint = 'md'
-    }
-    else if (innerWidth >= 400) {
-      breakpoint = 'sm'
+      breakpoint = 'lg';
+    } else if (innerWidth >= 768) {
+      breakpoint = 'md';
+    } else if (innerWidth >= 400) {
+      breakpoint = 'sm';
     }
 
     return breakpoint;
   };
 
-  handleResize = () => {
+  private handleResize = () => {
     clearTimeout(this.debounceTimeout);
 
     this.debounceTimeout = setTimeout(() => {
@@ -71,14 +63,19 @@ class App extends React.Component {
     }, 250);
   };
 
-  render() {
+  public render() {
     const { breakpoint } = this.state;
 
     return (
       <BrowserRouter>
-        <ScrollRestoration>
+        <ScrollToTop>
           <Switch>
-            <Route exact path="/" render={(props) => (<Basic {...props} breakpoint={breakpoint} />)} />
+            <Route
+              exact={true}
+              path="/"
+              /* tslint:disable-next-line:jsx-no-lambda */
+              render={props => <Basic {...props} breakpoint={breakpoint} />}
+            />
             <Route path="/controlled" component={Controlled} />
             <Route path="/custom" component={CustomComponents} />
             <Route path="/carousel" component={Carousel} />
@@ -88,7 +85,7 @@ class App extends React.Component {
           {NODE_ENV === 'production' && <CodeSandboxEdit />}
           {NODE_ENV === 'production' && <GitHubRepo />}
           <Footer />
-        </ScrollRestoration>
+        </ScrollToTop>
       </BrowserRouter>
     );
   }

@@ -1,20 +1,42 @@
-import * as React from 'react';
+import React from 'react';
 import { FormattedMessage, intlShape } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
-import ReactJoyride, { STATUS } from 'react-joyride';
+import Joyride, {
+  BeaconRenderProps,
+  CallBackProps,
+  Step,
+  StoreHelpers,
+  TooltipRenderProps,
+  STATUS,
+} from 'react-joyride';
 import Select from 'react-select';
+// @ts-ignore
 import a11yChecker from 'a11y-checker';
 
 import Icon from './Icon';
 import Intl from './Intl';
 import Grid from './Grid';
 
+interface Props {
+  setLocale: (locale: string) => void;
+}
+
+interface State {
+  run: boolean;
+  steps: Step[];
+}
+
+interface IntlProps {
+  children: React.ReactNode;
+  locale: string;
+}
+
 const Wrapper = styled.div`
   background-color: #ccc;
   box-sizing: border-box;
   min-height: 100vh;
-	padding: 20px 0 70px;
-	position: relative;
+  padding: 20px 0 70px;
+  position: relative;
 `;
 
 const Heading = styled.h1`
@@ -25,33 +47,53 @@ const Heading = styled.h1`
 const SubHeading = styled.h3`
   color: #f04;
   text-align: center;
-  
+
   a {
     color: inherit;
     text-decoration: underline;
   }
 `;
 
+const Row = styled.div`
+  align-items: center;
+  display: flex;
+  white-space: nowrap;
+`;
+
+const Button = styled.button`
+  background-color: #f04;
+  color: #fff;
+  margin-right: ${(props: { spacer?: boolean }) => (props.spacer ? 'auto' : 0)};
+  padding: 1.1rem;
+`;
+
+const Input = styled.input`
+  -webkit-appearance: none;
+  border: 0.1rem solid #f04;
+  padding: 0.6rem;
+  width: 75%;
+`;
+
 const TooltipBody = styled.div`
-  background-color: #daa588;
+  background-color: #fff;
   min-width: 290px;
   max-width: 420px;
   position: relative;
 `;
 
 const TooltipContent = styled.div`
-  color: #fff;
+  color: #000;
   padding: 20px;
 `;
 
 const TooltipTitle = styled.h2`
-  color: #fff;
+  color: #f04;
   padding: 20px;
   margin: 0;
 `;
 
 const TooltipFooter = styled.div`
-  background-color: #f56960;
+  background-color: #ffccda;
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
@@ -60,17 +102,10 @@ const TooltipFooter = styled.div`
   * + * {
     margin-left: 0.5rem;
   }
-`;
 
-const Button = styled.button`
-  background-color: #e11b0e;
-  color: #fff;
-  margin-right: ${props => props.spacer ? 'auto' : 0};
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  width: 75%;
+  ${Button} {
+    padding: 0.8rem;
+  }
 `;
 
 const Tooltip = ({
@@ -79,11 +114,10 @@ const Tooltip = ({
   isLastStep,
   step,
   backProps,
-  closeProps,
   primaryProps,
   skipProps,
-  tooltipProps
-}) => {
+  tooltipProps,
+}: TooltipRenderProps) => {
   return (
     <TooltipBody {...tooltipProps}>
       {step.title && <TooltipTitle>{step.title}</TooltipTitle>}
@@ -104,7 +138,7 @@ const Tooltip = ({
         </Button>
       </TooltipFooter>
     </TooltipBody>
-  )
+  );
 };
 
 const pulse = keyframes`
@@ -118,7 +152,7 @@ const pulse = keyframes`
   }
 `;
 
-const Beacon = styled.button`
+const BeaconButton = styled.button`
   animation: ${pulse} 1s ease-in-out infinite;
   background-color: rgba(255, 27, 14, 0.6);
   border-radius: 50%;
@@ -137,32 +171,33 @@ const Selector = styled.div`
 const Option = styled.div`
   align-items: center;
   display: flex;
-  
+
   svg {
     margin-right: 8px;
   }
 `;
 
-const IntlWrapper = ({ children, locale }) => (
-  <Intl locale={locale}>{children}</Intl>
-);
+const IntlWrapper = ({ children, locale }: IntlProps) => <Intl locale={locale}>{children}</Intl>;
 
-class Custom extends React.Component {
-  state = {
+class Custom extends React.Component<Props, State> {
+  public static contextTypes = {
+    intl: intlShape,
+  };
+
+  public state = {
     run: true,
     steps: [
       {
         content: (
           <React.Fragment>
             <h5 style={{ marginTop: 0 }}>Weekly magic on your inbox</h5>
-            <div style={{ whiteSpace: 'nowrap' }}>
+            <Row>
               <Input type="email" placeholder="Type your email" />
               <Button>SEND</Button>
-            </div>
+            </Row>
           </React.Fragment>
         ),
-        placement: 'bottom',
-        placementBeacon: 'top',
+        placementBeacon: 'top' as const,
         target: '.image-grid div:nth-child(1)',
         textAlign: 'center',
         title: 'Our awesome projects',
@@ -171,15 +206,14 @@ class Custom extends React.Component {
         content: 'Change the world, obviously',
         disableCloseOnEsc: true,
         disableOverlayClicks: true,
-        placement: 'bottom',
         target: '.image-grid div:nth-child(2)',
-        title: 'Our Mission'
+        title: 'Our Mission',
       },
       {
         content: 'Special stuff just for you!',
-        placement: 'top',
+        placement: 'top' as const,
         target: '.image-grid div:nth-child(4)',
-        title: 'The good stuff'
+        title: 'The good stuff',
       },
       {
         content: (
@@ -188,7 +222,6 @@ class Custom extends React.Component {
               width="96px"
               height="96px"
               viewBox="0 0 96 96"
-              version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="xMidYMid"
               role="img"
@@ -202,50 +235,54 @@ class Custom extends React.Component {
             </svg>
           </div>
         ),
+        placement: 'right' as const,
         target: '.image-grid div:nth-child(5)',
-        placement: 'right',
         title: 'We are the people',
-      }
-    ]
-  };
-  helpers = {};
-
-  static contextTypes = {
-    intl: intlShape
+      },
+    ],
   };
 
-  componentDidMount() {
+  private helpers?: StoreHelpers;
+
+  public componentDidMount() {
     a11yChecker();
   }
 
-  setHelpers = (helpers) => {
+  private setHelpers = (helpers: StoreHelpers) => {
     this.helpers = helpers;
   };
 
-  handleClickRestart = () => {
-    this.helpers.reset(true);
+  private handleClickRestart = () => {
+    const { reset }: StoreHelpers = this.helpers!;
+
+    reset(true);
   };
 
-  handleSelect = (option) => {
+  private handleSelect = (option: { value: string }) => {
     const { setLocale } = this.props;
     setLocale(option.value);
   };
 
-  handleJoyrideCallback = data => {
-    const { status, type } = data;
+  private handleJoyrideCallback = (props: CallBackProps) => {
+    const { status, type } = props;
+    const options: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
-    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+    if (options.includes(status)) {
       this.setState({ run: false });
     }
 
+    // tslint:disable:no-console
     console.groupCollapsed(type);
-    console.log(data); //eslint-disable-line no-console
+    console.log(props);
     console.groupEnd();
+    // tslint:enable:no-console
   };
 
-  render() {
+  public render() {
     const { run, steps } = this.state;
-    const { intl: { messages } } = this.context;
+    const {
+      intl: { messages },
+    } = this.context;
 
     return (
       <Wrapper>
@@ -259,41 +296,77 @@ class Custom extends React.Component {
             aria-label="Open styled-components in a new window"
           >
             styled-components
-          </a>)
+          </a>
+          )
         </SubHeading>
         <Selector>
           <Select
-            placeholder={<Option><Icon /> Select your language</Option>}
+            // @ts-ignore
+            placeholder={
+              <Option>
+                <Icon /> Select your language
+              </Option>
+            }
+            // @ts-ignore
             onChange={this.handleSelect}
             options={[
-              { value: 'en', label: <Option><Icon /> English</Option> },
-              { value: 'es', label: <Option><Icon /> Español</Option> },
-              { value: 'de', label: <Option><Icon /> Deutsch</Option> },
-              { value: 'fr', label: <Option><Icon /> Français</Option> },
+              {
+                label: (
+                  <Option>
+                    <Icon /> English
+                  </Option>
+                ),
+                value: 'en',
+              },
+              {
+                label: (
+                  <Option>
+                    <Icon /> Español
+                  </Option>
+                ),
+                value: 'es',
+              },
+              {
+                label: (
+                  <Option>
+                    <Icon /> Deutsch
+                  </Option>
+                ),
+                value: 'de',
+              },
+              {
+                label: (
+                  <Option>
+                    <Icon /> Français
+                  </Option>
+                ),
+                value: 'fr',
+              },
             ]}
           />
-          <button onClick={this.handleClickRestart}><FormattedMessage id="restart" /></button>
+          <button onClick={this.handleClickRestart}>
+            <FormattedMessage id="restart" />
+          </button>
         </Selector>
-        <ReactJoyride
+        <Joyride
           run={run}
           steps={steps}
-          beaconComponent={Beacon}
+          beaconComponent={BeaconButton as React.ElementType<BeaconRenderProps>}
           callback={this.handleJoyrideCallback}
           getHelpers={this.setHelpers}
           locale={messages}
-          scrollToFirstStep
-          showSkipButton
+          scrollToFirstStep={true}
+          showSkipButton={true}
           tooltipComponent={Tooltip}
           styles={{
             options: {
-              arrowColor: '#DAA588',
-              zIndex: 2000000
+              arrowColor: '#fff',
+              zIndex: 2000000,
             },
             overlay: {
-              backgroundColor: 'rgba(79, 46, 8, 0.5)'
-            }
+              backgroundColor: 'rgba(79, 46, 8, 0.5)',
+            },
           }}
-          {...this.props.joyride}
         />
         <Grid />
       </Wrapper>
@@ -301,16 +374,17 @@ class Custom extends React.Component {
   }
 }
 
-export default class CustomComponent extends React.Component {
-  state = {
+// tslint:disable-next-line:max-classes-per-file
+export default class CustomIntl extends React.Component<IntlProps> {
+  public state = {
     locale: 'en',
   };
 
-  setLocale = (locale) => {
+  private setLocale = (locale: string) => {
     this.setState({ locale });
   };
 
-  render() {
+  public render() {
     const { locale } = this.state;
 
     return (

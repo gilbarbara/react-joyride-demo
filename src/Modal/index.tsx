@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import ReactJoyride, { STATUS } from 'react-joyride';
+import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+// @ts-ignore
 import a11yChecker from 'a11y-checker';
+
+interface State {
+  modalIsOpen: boolean;
+  run: boolean;
+  stepIndex: number;
+  steps: Step[];
+}
 
 const Wrapper = styled.div`
   align-items: center;
   background: #ccc
-    repeating-linear-gradient(
-      45deg,
-      #606dbc,
-      #606dbc 10px,
-      #465298 10px,
-      #465298 20px
-    );
+    repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -31,7 +33,7 @@ const Heading = styled.h1`
 const SubHeading = styled.h3`
   color: #fff;
   text-align: center;
-  
+
   a {
     color: inherit;
     text-decoration: underline;
@@ -49,109 +51,111 @@ const Button = styled.button`
   }
 `;
 
-class ModalDemo extends Component {
-  state = {
+export default class ModalDemo extends Component<any, State> {
+  public state = {
     modalIsOpen: false,
     run: false,
+    stepIndex: 0,
     steps: [
       {
-        target: '.ReactModal__Content button:nth-of-type(1)',
         content: 'Tabs or spaces? 🤔',
         placement: 'bottom',
-        textAlign: 'center'
+        target: '.ReactModal__Content button:nth-of-type(1)',
+        textAlign: 'center',
       },
       {
-        target: '.ReactModal__Content button:nth-of-type(2)',
-        content: 'A button! That\'s rare on the web',
+        content: "A button! That's rare on the web",
         placement: 'bottom',
+        target: '.ReactModal__Content button:nth-of-type(2)',
       },
       {
+        content: "Sometimes I wonder what's inside my mind",
+        placement: 'bottom',
         target: '.ReactModal__Content button:nth-of-type(3)',
-        content: 'Sometimes I wonder what\'s inside my mind',
-        placement: 'bottom'
       },
       {
-        target: '.ReactModal__Content button:nth-of-type(4)',
         content: 'Modal, Portal, Quintal!',
-        placement: 'bottom'
-      }
-    ]
+        placement: 'bottom',
+        target: '.ReactModal__Content button:nth-of-type(4)',
+      },
+    ] as Step[],
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     a11yChecker();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  public componentDidUpdate(prevProps: any, prevState: State) {
     if (!prevState.modalIsOpen && this.state.modalIsOpen) {
       this.start();
     }
   }
 
-  start = () => {
+  private start = () => {
     this.setState({
       run: true,
-      stepIndex: 0
     });
   };
 
-  handleJoyrideCallback = (data) => {
+  private handleJoyrideCallback = (data: CallBackProps) => {
     const { status, type } = data;
 
-    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+    if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
       this.setState({ run: false });
     }
 
+    // tslint:disable:no-console
     console.groupCollapsed(type);
-    console.log(data); //eslint-disable-line no-console
+    console.log(data);
     console.groupEnd();
+    // tslint:enable:no-console
   };
 
-  openModal = () => {
+  private openModal = () => {
     this.setState({
-      modalIsOpen: true
+      modalIsOpen: true,
     });
   };
 
-  closeModal = () => {
+  private closeModal = () => {
     this.setState({
       modalIsOpen: false,
-      run: false
+      run: false,
     });
   };
 
-  afterOpenModal = () => {
+  private afterOpenModal = () => {
     this.setState({
-      run: true
+      run: true,
     });
   };
 
-  render() {
+  public render() {
     const { modalIsOpen, run, steps } = this.state;
 
     const customStyles = {
       content: {
         maxHeight: '70%',
-        textAlign: 'center'
-      }
+        textAlign: 'center',
+      },
     };
 
     return (
       <Wrapper>
-        <ReactJoyride
+        <Joyride
           callback={this.handleJoyrideCallback}
-          continuous
+          continuous={true}
           run={run}
-          showSkipButton
+          showSkipButton={true}
           steps={steps}
           styles={{
             options: {
               arrowColor: '#e3ffeb',
               backgroundColor: '#e3ffeb',
+              overlayColor: 'rgba(79, 26, 0, 0.4)',
               primaryColor: '#000',
               textColor: '#004a14',
-              overlayColor: 'rgba(79, 26, 0, 0.4)',
-            }
+            },
           }}
         />
         <Heading>It works with modals</Heading>
@@ -164,7 +168,8 @@ class ModalDemo extends Component {
             aria-label="Open react-modal in a new window"
           >
             react-modal
-          </a>)
+          </a>
+          )
         </SubHeading>
         <Button onClick={this.openModal}>Open Modal</Button>
         <Modal
@@ -186,5 +191,3 @@ class ModalDemo extends Component {
     );
   }
 }
-
-export default ModalDemo;

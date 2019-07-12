@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import ReactJoyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
+import Joyride, { ACTIONS, CallBackProps, EVENTS, STATUS } from 'react-joyride';
 import { Carousel } from 'react-responsive-carousel';
 import styled from 'styled-components';
+// @ts-ignore
 import a11yChecker from 'a11y-checker';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -32,15 +33,16 @@ const Link = styled.a`
 `;
 
 class CarouselDemo extends Component {
-  state = {
+  public state = {
     run: true,
+    stepIndex: 0,
     steps: [
       {
-        target: '.app__carousel',
         content: (
           <React.Fragment>
             <Heading>You can control external widgets</Heading>
-            <h4>(using{' '}
+            <h4>
+              (using{' '}
               <Link
                 href="https://github.com/leandrowd/react-responsive-carousel/"
                 target="_blank"
@@ -48,93 +50,98 @@ class CarouselDemo extends Component {
                 aria-label="Open react-modal in a new window"
               >
                 react-responsive-carousel
-              </Link>)
+              </Link>
+              )
             </h4>
           </React.Fragment>
         ),
-        textAlign: 'center',
         disableBeacon: true,
+        target: '.app__carousel',
+        textAlign: 'center',
       },
       {
-        target: '.app__carousel',
         content: 'It was sunny and we were together ❤️',
-        title: 'That Day'
+        target: '.app__carousel',
+        title: 'That Day',
       },
       {
-        target: '.app__carousel',
         content: 'Black and white photos are really beautiful',
+        target: '.app__carousel',
       },
       {
+        content: "I love those babies, don't you?",
         target: '.app__carousel',
-        content: 'I love those babies, don\'t you?',
         title: 'Da pupperz!',
       },
       {
-        target: '.app__carousel',
         content: 'Dark days and lonely nights',
-      }
+        target: '.app__carousel',
+      },
     ],
-    stepIndex: 0,
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     a11yChecker();
   }
 
-  handleClickCarousel = (index) => {
+  private handleClickCarousel = (index: number) => {
     if (index === 0) {
       this.setState({ run: true, stepIndex: 0 });
     }
   };
 
-  handleJoyrideCallback = data => {
+  private handleJoyrideCallback = (data: CallBackProps) => {
     const { action, index, status, type } = data;
 
-    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
+    if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)) {
       // Update state to advance the tour
       this.setState({ stepIndex: index + (action === ACTIONS.PREV ? -1 : 1) });
-    }
-    else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+    } else if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
       // Need to set our running state to false, so we can restart if we click start again.
       this.setState({ run: false });
     }
 
+    // tslint:disable:no-console
     console.groupCollapsed(type);
-    console.log(data); //eslint-disable-line no-console
+    console.log(data);
     console.groupEnd();
+    // tslint:enable:no-console
   };
 
-  render() {
+  public render() {
     const { run, stepIndex, steps } = this.state;
 
     return (
       <Wrapper>
-        <ReactJoyride
+        <Joyride
           run={run}
           steps={steps}
           stepIndex={stepIndex}
-          continuous
-          scrollToFirstStep
-          showSkipButton
+          continuous={true}
+          scrollToFirstStep={true}
+          showSkipButton={true}
           callback={this.handleJoyrideCallback}
           styles={{
             options: {
-              primaryColor: '#099',
               overlayColor: 'rgba(0, 122, 122, 0.6)',
-            }
+              primaryColor: '#099',
+            },
           }}
         />
         <CarouselWrapper className="app__carousel">
           <Carousel
-            style={{ height: '60vh' }}
+            onClickItem={this.handleClickCarousel}
             selectedItem={stepIndex}
             showArrows={!run}
-            onClickItem={this.handleClickCarousel}
             showIndicators={false}
             showStatus={false}
             showThumbs={false}
           >
-            <img src={`https://placeimg.com/${width}/${height}/any/grayscale?1`} onClick={this.handleClickStart} style={{ cursor: 'pointer' }} alt="1" />
+            <img
+              src={`https://placeimg.com/${width}/${height}/any/grayscale?1`}
+              style={{ cursor: 'pointer' }}
+              alt="1"
+            />
             <img src={`https://placeimg.com/${width}/${height}/any/grayscale?2`} alt="2" />
             <img src={`https://placeimg.com/${width}/${height}/any/grayscale?3`} alt="3" />
             <img src={`https://placeimg.com/${width}/${height}/any/grayscale?4`} alt="4" />

@@ -7,10 +7,13 @@ const Boxy = styled(Box)`
   max-width: 400px;
 `;
 
-const ContentBox = ({ children }) => (
-  <Boxy align="center">
-    {children}
-  </Boxy>
+interface Props {
+  children: React.ReactNode;
+}
+
+const ContentBox = ({ children }: Props) => (
+  // @ts-ignore
+  <Boxy align="center">{children}</Boxy>
 );
 
 export default ContentBox;

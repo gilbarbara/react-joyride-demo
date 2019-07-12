@@ -1,9 +1,10 @@
+import { IObject, IRefParams } from '../types/common';
 import React from 'react';
 import { Box, Diagram, Heading, Stack } from 'grommet';
 
 import ContentBox from '../components/ContentBox';
 
-const Node = ({ id, ...rest }) => (
+const Node = ({ id, ...rest }: IObject) => (
   <Box
     id={id}
     basis="xxsmall"
@@ -15,20 +16,22 @@ const Node = ({ id, ...rest }) => (
   />
 );
 
-const connection = (fromTarget, toTarget, { color, ...rest } = {}) => ({
+const connection = (fromTarget: string, toTarget: string, { color, ...rest }: IObject = {}) => ({
+  anchor: 'vertical' as const,
+  color: color || 'accent-1',
   fromTarget,
-  toTarget,
-  anchor: "vertical",
-  color: color || "accent-1",
-  thickness: "xsmall",
   round: true,
-  type: "rectilinear",
-  ...rest
+  thickness: 'xsmall',
+  toTarget,
+  type: 'rectilinear' as const,
+  ...rest,
 });
 
-const Connections = ({ setRef }) => (
-  <Box fill data-name="connections" ref={setRef}>
-    <Heading level={2} style={{ marginTop: 0 }}>Connections</Heading>
+const Connections = ({ setRef }: IRefParams) => (
+  <Box fill={true} data-name="connections" ref={setRef}>
+    <Heading level={2} style={{ marginTop: 0 }}>
+      Connections
+    </Heading>
     <ContentBox>
       <Stack>
         <Box>
@@ -50,10 +53,10 @@ const Connections = ({ setRef }) => (
         </Box>
         <Diagram
           connections={[
-            connection("1", "5", { color: "white" }),
-            connection("3", "5", { color: "white", anchor: "horizontal" }),
-            connection("4", "7", { color: "white", anchor: "horizontal" }),
-            connection("5", "9", { color: "white" }),
+            connection('1', '5', { color: 'white' }),
+            connection('3', '5', { color: 'white', anchor: 'horizontal' }),
+            connection('4', '7', { color: 'white', anchor: 'horizontal' }),
+            connection('5', '9', { color: 'white' }),
           ]}
         />
       </Stack>

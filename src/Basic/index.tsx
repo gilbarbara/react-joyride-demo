@@ -1,29 +1,41 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactJoyride, { STATUS } from 'react-joyride';
+import Joyride, { CallBackProps, STATUS, Step, StoreHelpers } from 'react-joyride';
 import styled from 'styled-components';
+// @ts-ignore
 import a11yChecker from 'a11y-checker';
 
-import { ReactComponent } from '../media/logo.svg';
+import { ReactComponent as LogoSVG } from '../media/logo.svg';
+import StarBurst from '../components/StarBurst';
 
 import './styles.css';
 
-const Logo = styled(ReactComponent)`
+interface Props {
+  breakpoint: string;
+}
+
+interface State {
+  run: boolean;
+  steps: Step[];
+}
+
+const Logo = styled(LogoSVG)`
   height: auto;
   margin-bottom: 10px;
   max-height: 100%;
-  max-width: ${({ breakpoint }) => `${breakpoint === 'lg' ? '500px' : '290px'}`};
+  max-width: ${({ breakpoint }: Props) => `${breakpoint === 'lg' ? '500px' : '290px'}`};
   width: 100%;
 `;
 
 const Subtitle = styled.p`
-  font-size: ${({ breakpoint }) => `${breakpoint === 'lg' ? '35px' : '20px'}`};
+  font-size: ${({ breakpoint }: Props) => `${breakpoint === 'lg' ? '35px' : '20px'}`};
   margin: 0 auto;
   width: 100%;
 `;
 
-class Basic extends Component {
-  constructor(props) {
+class Basic extends Component<Props, State> {
+  private helpers?: StoreHelpers;
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -31,31 +43,40 @@ class Basic extends Component {
       steps: [
         {
           content: <h2>Let's begin our journey!</h2>,
-          placement: 'center',
           locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+          placement: 'center',
           target: 'body',
+        },
+        {
+          content: <h2>Sticky elements</h2>,
+          floaterProps: {
+            disableAnimation: true,
+          },
+          spotlightPadding: 20,
+          target: '.star-burst',
         },
         {
           content: 'These are our super awesome projects!',
           placement: 'bottom',
           styles: {
             options: {
-              width: 300
-            }
+              width: 300,
+            },
           },
           target: '.demo__projects h2',
-          title: 'Our projects'
+          title: 'Our projects',
         },
         {
-          title: 'Our Mission',
           content: (
             <div>
-              You can render anything!<br />
+              You can render anything!
+              <br />
               <h3>Like this H3 title</h3>
             </div>
           ),
+          placement: 'top',
           target: '.demo__how-it-works h2',
-          placement: 'top'
+          title: 'Our Mission',
         },
         {
           content: (
@@ -65,7 +86,6 @@ class Basic extends Component {
                 width="50px"
                 height="50px"
                 viewBox="0 0 96 96"
-                version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="xMidYMid"
               >
@@ -85,57 +105,61 @@ class Basic extends Component {
     };
   }
 
-  static propTypes = {
-    breakpoint: PropTypes.string.isRequired,
-  };
-
-  componentDidMount() {
+  public componentDidMount() {
     a11yChecker();
   }
 
-  handleClickStart = e => {
+  private getHelpers = (helpers: StoreHelpers) => {
+    this.helpers = helpers;
+  };
+
+  private handleClickStart = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     this.setState({
-      run: true
+      run: true,
     });
   };
 
-  handleJoyrideCallback = data => {
+  private handleJoyrideCallback = (data: CallBackProps) => {
     const { status, type } = data;
+    const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
-    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+    if (finishedStatuses.includes(status)) {
       this.setState({ run: false });
     }
 
+    // tslint:disable:no-console
     console.groupCollapsed(type);
-    console.log(data); //eslint-disable-line no-console
+    console.log(data);
     console.groupEnd();
+    // tslint:enable:no-console
   };
 
-  render() {
+  public render() {
     const { run, steps } = this.state;
     const { breakpoint } = this.props;
 
     return (
       <div className="demo-wrapper">
-        <ReactJoyride
+        <Joyride
           callback={this.handleJoyrideCallback}
-          continuous
+          continuous={true}
+          getHelpers={this.getHelpers}
           run={run}
-          scrollToFirstStep
-          showProgress
-          showSkipButton
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
           steps={steps}
           styles={{
             options: {
               zIndex: 10000,
-            }
+            },
           }}
         />
-
         <div className="demo__section demo__hero">
           <div>
+            <StarBurst className="star-burst">2.0</StarBurst>
             <Logo aria-hidden={true} breakpoint={breakpoint} />
             <Subtitle breakpoint={breakpoint}>Create guided tours for your apps</Subtitle>
             <button onClick={this.handleClickStart}>Start</button>
