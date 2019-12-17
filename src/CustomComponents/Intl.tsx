@@ -1,31 +1,15 @@
 import React from 'react';
-import { IntlProvider, addLocaleData } from 'react-intl';
-import de from 'react-intl/locale-data/de';
-import en from 'react-intl/locale-data/en';
-import es from 'react-intl/locale-data/es';
-import fr from 'react-intl/locale-data/fr';
-
-addLocaleData([...de, ...en, ...es, ...fr]);
-
-interface Message {
-  back: string;
-  close: string;
-  last: string;
-  next: string;
-  open: string;
-  skip: string;
-  restart: string;
-}
+import { IntlProvider } from 'react-intl';
 
 interface Messages {
-  [key: string]: Message;
+  [key: string]: any;
 }
 
 interface IntlProps {
   locale: string;
 }
 
-const messages: Messages = {
+export const messages: Messages = {
   de: {
     back: 'Zurück',
     close: 'Schließen',
@@ -34,6 +18,8 @@ const messages: Messages = {
     open: 'Öffnet den Dialog',
     restart: 'Starten Sie die Tour neu',
     skip: 'Überspringen',
+    title: 'Sie können benutzerdefinierte Komponenten verwenden!',
+    with: 'mit',
   },
   en: {
     back: 'Back',
@@ -43,6 +29,8 @@ const messages: Messages = {
     open: 'Open the dialog',
     restart: 'Restart the tour',
     skip: 'Skip',
+    title: 'You can use custom components!',
+    with: 'with',
   },
   es: {
     back: 'Espalda',
@@ -52,6 +40,8 @@ const messages: Messages = {
     open: 'Abre el dialogo',
     restart: 'Reiniciar el tour',
     skip: 'Omitir',
+    title: '¡Puedes usar componentes personalizados!',
+    with: 'con',
   },
   fr: {
     back: 'Retour',
@@ -61,6 +51,8 @@ const messages: Messages = {
     open: 'Ouvrir le dialogue',
     restart: 'Redémarrer le tour',
     skip: 'Sauter',
+    title: 'Vous pouvez utiliser des composants personnalisés!',
+    with: 'avec',
   },
 };
 

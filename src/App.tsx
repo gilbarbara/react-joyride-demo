@@ -7,6 +7,7 @@ import CustomComponents from './CustomComponents';
 import Carousel from './Carousel';
 import Modal from './Modal';
 import Scroll from './Scroll';
+import NotFound from './NotFound';
 
 import CodeSandboxEdit from './components/CodeSandboxEdit';
 import Footer from './components/Footer';
@@ -76,11 +77,12 @@ class App extends React.Component<any, State> {
               /* tslint:disable-next-line:jsx-no-lambda */
               render={props => <Basic {...props} breakpoint={breakpoint} />}
             />
-            <Route path="/controlled" component={Controlled} />
+            <Route path="/controlled/:page?" component={Controlled} />
             <Route path="/custom" component={CustomComponents} />
             <Route path="/carousel" component={Carousel} />
             <Route path="/modal" component={Modal} />
             <Route path="/scroll" component={Scroll} />
+            <Route component={NotFound} />
           </Switch>
           {NODE_ENV === 'production' && <CodeSandboxEdit />}
           {NODE_ENV === 'production' && <GitHubRepo />}

@@ -159,7 +159,7 @@ class Basic extends Component<Props, State> {
         />
         <div className="demo__section demo__hero">
           <div>
-            <StarBurst className="star-burst">2.0</StarBurst>
+            <StarBurst className="star-burst">V2</StarBurst>
             <Logo aria-hidden={true} breakpoint={breakpoint} />
             <Subtitle breakpoint={breakpoint}>Create guided tours for your apps</Subtitle>
             <button onClick={this.handleClickStart}>Start</button>

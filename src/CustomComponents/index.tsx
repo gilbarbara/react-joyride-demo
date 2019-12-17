@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 import Joyride, {
   BeaconRenderProps,
@@ -14,7 +14,7 @@ import Select from 'react-select';
 import a11yChecker from 'a11y-checker';
 
 import Icon from './Icon';
-import Intl from './Intl';
+import Intl, { messages } from './Intl';
 import Grid from './Grid';
 
 interface Props {
@@ -180,10 +180,6 @@ const Option = styled.div`
 const IntlWrapper = ({ children, locale }: IntlProps) => <Intl locale={locale}>{children}</Intl>;
 
 class Custom extends React.Component<Props, State> {
-  public static contextTypes = {
-    intl: intlShape,
-  };
-
   public state = {
     run: true,
     steps: [
@@ -253,7 +249,7 @@ class Custom extends React.Component<Props, State> {
   };
 
   private handleClickRestart = () => {
-    const { reset }: StoreHelpers = this.helpers!;
+    const { reset } = this.helpers!;
 
     reset(true);
   };
@@ -280,15 +276,12 @@ class Custom extends React.Component<Props, State> {
 
   public render() {
     const { run, steps } = this.state;
-    const {
-      intl: { messages },
-    } = this.context;
 
     return (
       <Wrapper>
-        <Heading>You can use custom components!</Heading>
+        <FormattedMessage id="title">{value => <Heading>{value}</Heading>}</FormattedMessage>
         <SubHeading>
-          (using{' '}
+          (<FormattedMessage id="with" tagName="span" />{' '}
           <a
             href="https://github.com/styled-components/styled-components"
             target="_blank"
