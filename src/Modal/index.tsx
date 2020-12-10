@@ -104,11 +104,9 @@ export default class ModalDemo extends Component<any, State> {
       this.setState({ run: false });
     }
 
-    // tslint:disable:no-console
     console.groupCollapsed(type);
     console.log(data);
     console.groupEnd();
-    // tslint:enable:no-console
   };
 
   private openModal = () => {
@@ -136,7 +134,7 @@ export default class ModalDemo extends Component<any, State> {
     const customStyles = {
       content: {
         maxHeight: '70%',
-        textAlign: 'center',
+        textAlign: 'center' as const,
       },
     };
 

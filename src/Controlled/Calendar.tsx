@@ -1,10 +1,10 @@
-import { IRefParams } from '../types/common';
+import { RefParams } from '../types/common';
 import React from 'react';
 
 import { Box, Calendar, Heading } from 'grommet';
 import ContentBox from '../components/ContentBox';
 
-const CalendarBox = ({ setRef, size = 'small' }: IRefParams) => (
+const CalendarBox = ({ setRef, size = 'small' }: RefParams) => (
   <Box fill={true} data-name="calendar" ref={setRef}>
     <Heading level={2} style={{ marginTop: 0 }}>
       Calendar

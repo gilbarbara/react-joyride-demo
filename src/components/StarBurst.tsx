@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IObject } from '../types/common';
+import { PlainObject } from '../types/common';
 
-const StarBurst = styled.div`
+const Component = styled.div`
   align-items: center;
   background: #202020;
   color: #fff;
@@ -51,8 +51,10 @@ const StarBurst = styled.div`
   }
 `;
 
-export default ({ children, ...rest }: IObject) => (
-  <StarBurst {...rest}>
-    <span>{children}</span>
-  </StarBurst>
-);
+export default function StarBurst({ children, ...rest }: PlainObject) {
+  return (
+    <Component {...rest}>
+      <span>{children}</span>
+    </Component>
+  );
+}

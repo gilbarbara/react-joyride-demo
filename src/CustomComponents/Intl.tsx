@@ -56,7 +56,7 @@ export const messages: Messages = {
   },
 };
 
-export default class Intl extends React.Component<IntlProps, {}> {
+export default class Intl extends React.Component<IntlProps, any> {
   public render() {
     const { children, locale } = this.props;
 

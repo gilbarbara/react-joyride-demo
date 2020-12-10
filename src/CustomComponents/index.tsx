@@ -193,7 +193,7 @@ class Custom extends React.Component<Props, State> {
             </Row>
           </React.Fragment>
         ),
-        placementBeacon: 'top' as 'top',
+        placementBeacon: 'top' as const,
         target: '.image-grid div:nth-child(1)',
         textAlign: 'center',
         title: 'Our awesome projects',
@@ -207,7 +207,7 @@ class Custom extends React.Component<Props, State> {
       },
       {
         content: 'Special stuff just for you!',
-        placement: 'top' as 'top',
+        placement: 'top' as const,
         target: '.image-grid div:nth-child(4)',
         title: 'The good stuff',
       },
@@ -231,7 +231,7 @@ class Custom extends React.Component<Props, State> {
             </svg>
           </div>
         ),
-        placement: 'right' as 'right',
+        placement: 'right' as const,
         target: '.image-grid div:nth-child(5)',
         title: 'We are the people',
       },
@@ -267,11 +267,9 @@ class Custom extends React.Component<Props, State> {
       this.setState({ run: false });
     }
 
-    // tslint:disable:no-console
     console.groupCollapsed(type);
     console.log(props);
     console.groupEnd();
-    // tslint:enable:no-console
   };
 
   public render() {
@@ -279,7 +277,7 @@ class Custom extends React.Component<Props, State> {
 
     return (
       <Wrapper>
-        <FormattedMessage id="title">{value => <Heading>{value}</Heading>}</FormattedMessage>
+        <FormattedMessage id="title">{(value) => <Heading>{value}</Heading>}</FormattedMessage>
         <SubHeading>
           (<FormattedMessage id="with" tagName="span" />{' '}
           <a
@@ -367,7 +365,6 @@ class Custom extends React.Component<Props, State> {
   }
 }
 
-// tslint:disable-next-line:max-classes-per-file
 export default class CustomIntl extends React.Component<IntlProps> {
   public state = {
     locale: 'en',

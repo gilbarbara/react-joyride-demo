@@ -1,4 +1,4 @@
-import { IObject, IRefParams } from '../types/common';
+import { PlainObject, RefParams } from '../types/common';
 import React from 'react';
 
 import { Box, DataTable, DataTableProps, Heading, Meter, MeterProps, Text } from 'grommet';
@@ -14,7 +14,7 @@ const columns: DataTableProps['columns'] = [
   {
     header: 'Percent Complete',
     property: 'percent',
-    render: (datum: IObject) => (
+    render: (datum: PlainObject) => (
       <Box pad={{ vertical: 'xsmall' }}>
         <Meter
           values={[{ value: datum.percent }] as MeterProps['values']}
@@ -30,7 +30,7 @@ const columns: DataTableProps['columns'] = [
     footer: { aggregate: true },
     header: 'Paid',
     property: 'paid',
-    render: (datum: IObject) => datum.paid,
+    render: (datum: PlainObject) => datum.paid,
   },
 ];
 
@@ -67,7 +67,7 @@ const DATA = [
   },
 ];
 
-const Users = ({ setRef }: IRefParams) => (
+const Users = ({ setRef }: RefParams) => (
   <Box fill={true} data-name="users" ref={setRef}>
     <Heading level={2} style={{ marginTop: 0 }}>
       Users

@@ -129,11 +129,9 @@ class Basic extends Component<Props, State> {
       this.setState({ run: false });
     }
 
-    // tslint:disable:no-console
     console.groupCollapsed(type);
     console.log(data);
     console.groupEnd();
-    // tslint:enable:no-console
   };
 
   public render() {

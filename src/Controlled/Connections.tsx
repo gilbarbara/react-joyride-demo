@@ -1,10 +1,10 @@
-import { IObject, IRefParams } from '../types/common';
+import { PlainObject, RefParams } from '../types/common';
 import React from 'react';
 import { Box, Diagram, Heading, Stack } from 'grommet';
 
 import ContentBox from '../components/ContentBox';
 
-const Node = ({ id, ...rest }: IObject) => (
+const Node = ({ id, ...rest }: PlainObject) => (
   <Box
     id={id}
     basis="xxsmall"
@@ -16,18 +16,22 @@ const Node = ({ id, ...rest }: IObject) => (
   />
 );
 
-const connection = (fromTarget: string, toTarget: string, { color, ...rest }: IObject = {}) => ({
-  anchor: 'vertical' as 'vertical',
+const connection = (
+  fromTarget: string,
+  toTarget: string,
+  { color, ...rest }: PlainObject = {},
+) => ({
+  anchor: 'vertical' as const,
   color: color || 'accent-1',
   fromTarget,
   round: true,
   thickness: 'xsmall',
   toTarget,
-  type: 'rectilinear' as 'rectilinear',
+  type: 'rectilinear' as const,
   ...rest,
 });
 
-const Connections = ({ setRef }: IRefParams) => (
+const Connections = ({ setRef }: RefParams) => (
   <Box fill={true} data-name="connections" ref={setRef}>
     <Heading level={2} style={{ marginTop: 0 }}>
       Connections
@@ -36,17 +40,17 @@ const Connections = ({ setRef }: IRefParams) => (
       <Stack>
         <Box>
           <Box direction="row">
-            {[1, 2, 3].map(id => (
+            {[1, 2, 3].map((id) => (
               <Node key={id} id={id} />
             ))}
           </Box>
           <Box direction="row">
-            {[4, 5].map(id => (
+            {[4, 5].map((id) => (
               <Node key={id} id={id} background="accent-2" />
             ))}
           </Box>
           <Box direction="row">
-            {[6, 7, 8, 9].map(id => (
+            {[6, 7, 8, 9].map((id) => (
               <Node key={id} id={id} background="accent-3" />
             ))}
           </Box>

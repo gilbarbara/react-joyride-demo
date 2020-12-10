@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "prettier/react",
+    "prettier/standard"
+  ],
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
+  }
+}

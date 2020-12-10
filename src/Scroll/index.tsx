@@ -49,23 +49,23 @@ export default class ScrollDemo extends Component<any, State> {
     steps: [
       {
         content: 'The latest version of React!',
-        placement: 'bottom' as 'bottom',
+        placement: 'bottom' as const,
         target: '.app__scroller h2',
         textAlign: 'center',
       },
       {
         content: 'Nobody likes errors! 🤬',
-        placement: 'top' as 'top',
+        placement: 'top' as const,
         target: '.app__scroller h3:nth-of-type(2)',
       },
       {
         content: 'Yay! Portals are awesome',
-        placement: 'top' as 'top',
+        placement: 'top' as const,
         target: '.app__scroller h3:nth-of-type(3)',
       },
       {
         content: 'SSR is supported',
-        placement: 'top' as 'top',
+        placement: 'top' as const,
         target: '.app__scroller h3:nth-of-type(4)',
       },
     ],
@@ -78,11 +78,9 @@ export default class ScrollDemo extends Component<any, State> {
   private handleJoyrideCallback = (data: CallBackProps) => {
     const { type } = data;
 
-    // tslint:disable:no-console
     console.groupCollapsed(type);
     console.log(data);
     console.groupEnd();
-    // tslint:enable:no-console
   };
 
   private renderContent() {

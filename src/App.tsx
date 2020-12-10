@@ -59,7 +59,7 @@ class App extends React.Component<any, State> {
   private handleResize = () => {
     clearTimeout(this.debounceTimeout);
 
-    this.debounceTimeout = setTimeout(() => {
+    this.debounceTimeout = window.setTimeout(() => {
       this.setState({ breakpoint: this.getScreenSize() });
     }, 250);
   };
@@ -74,8 +74,7 @@ class App extends React.Component<any, State> {
             <Route
               exact={true}
               path="/"
-              /* tslint:disable-next-line:jsx-no-lambda */
-              render={props => <Basic {...props} breakpoint={breakpoint} />}
+              render={(props) => <Basic {...props} breakpoint={breakpoint} />}
             />
             <Route path="/controlled/:page?" component={Controlled} />
             <Route path="/custom" component={CustomComponents} />

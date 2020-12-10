@@ -225,11 +225,9 @@ class Controlled extends Component<any, State> {
       }
     }
 
-    // tslint:disable:no-console
     console.groupCollapsed(type === EVENTS.TOUR_STATUS ? `${type}:${status}` : type);
     console.log(data);
     console.groupEnd();
-    // tslint:enable:no-console
   };
 
   private handleClickOpen = () => {

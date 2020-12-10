@@ -1,10 +1,10 @@
-import { IRefParams } from '../types/common';
+import { RefParams } from '../types/common';
 import React from 'react';
 
 import { Box, Chart, Heading } from 'grommet';
 import ContentBox from '../components/ContentBox';
 
-const Growth = ({ setRef }: IRefParams) => (
+const Growth = ({ setRef }: RefParams) => (
   <Box fill={true} data-name="growth" ref={setRef}>
     <Heading level={2} style={{ marginTop: 0 }}>
       Growth
