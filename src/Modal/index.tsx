@@ -14,8 +14,7 @@ interface State {
 
 const Wrapper = styled.div`
   align-items: center;
-  background: #ccc
-    repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
+  background: #ccc repeating-linear-gradient(45deg, #ccc, #ccc 10px, #eee 10px, #eee 20px);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -25,18 +24,27 @@ const Wrapper = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: #fff;
   margin: 0;
   text-align: center;
 `;
 
 const SubHeading = styled.h3`
-  color: #fff;
   text-align: center;
 
   a {
     color: inherit;
     text-decoration: underline;
+  }
+`;
+
+const Input = styled.input`
+  border: 1px solid #f04;
+  line-height: 1;
+  padding: 6px;
+  width: 120px;
+
+  + button {
+    margin-left: 15px;
   }
 `;
 
@@ -57,6 +65,13 @@ export default class ModalDemo extends Component<any, State> {
     run: false,
     stepIndex: 0,
     steps: [
+      {
+        content: "Here's an input inside a modal that can be used through the spotlight",
+        placement: 'bottom',
+        target: '.ReactModal__Content input',
+        textAlign: 'center',
+        spotlightClicks: true,
+      },
       {
         content: 'Tabs or spaces? 🤔',
         placement: 'bottom',
@@ -148,11 +163,11 @@ export default class ModalDemo extends Component<any, State> {
           steps={steps}
           styles={{
             options: {
-              arrowColor: '#e3ffeb',
-              backgroundColor: '#e3ffeb',
-              overlayColor: 'rgba(79, 26, 0, 0.4)',
+              arrowColor: '#ff0044',
+              backgroundColor: '#ff0044',
+              overlayColor: 'rgba(255, 0, 68, 0.2)',
               primaryColor: '#000',
-              textColor: '#004a14',
+              textColor: '#fff',
             },
           }}
         />
@@ -180,6 +195,7 @@ export default class ModalDemo extends Component<any, State> {
         >
           <h2>A react-modal example</h2>
           <p>I am a modal</p>
+          <Input name="test" type="text" />
           <Button tabIndex={1}>tab navigation</Button>
           <Button tabIndex={2}>stays</Button>
           <Button tabIndex={3}>inside</Button>
