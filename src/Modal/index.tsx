@@ -1,207 +1,163 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 import Modal from 'react-modal';
-import styled from 'styled-components';
+import { useMount, usePrevious, useSetState } from 'react-use';
+import { Anchor, Button, H1, H2, Input, Main, Spacer, theme } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
+
+import { logGroup } from '../modules/helpers';
 
 interface State {
   modalIsOpen: boolean;
   run: boolean;
-  stepIndex: number;
   steps: Step[];
 }
 
-const Wrapper = styled.div`
-  align-items: center;
-  background: #ccc repeating-linear-gradient(45deg, #ccc, #ccc 10px, #eee 10px, #eee 20px);
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  padding: 10px;
-  width: 100vw;
-`;
-
-const Heading = styled.h1`
-  margin: 0;
-  text-align: center;
-`;
-
-const SubHeading = styled.h3`
-  text-align: center;
-
-  a {
-    color: inherit;
-    text-decoration: underline;
-  }
-`;
-
-const Input = styled.input`
-  border: 1px solid #f04;
-  line-height: 1;
-  padding: 6px;
-  width: 120px;
-
-  + button {
-    margin-left: 15px;
-  }
-`;
-
-const Button = styled.button`
-  background-color: #f04;
-  color: #fff;
-  margin-bottom: 16px;
-  padding: 8px;
-
-  + button {
-    margin-left: 15px;
-  }
-`;
-
-export default class ModalDemo extends Component<any, State> {
-  public state = {
+export default function ModalDemo() {
+  const [{ modalIsOpen, run, steps }, setState] = useSetState<State>({
     modalIsOpen: false,
     run: false,
-    stepIndex: 0,
     steps: [
       {
         content: "Here's an input inside a modal that can be used through the spotlight",
         placement: 'bottom',
-        target: '.ReactModal__Content input',
+        target: '.ReactModal__Content [data-component-name="SpacerItem"]:nth-of-type(1) input',
         textAlign: 'center',
         spotlightClicks: true,
       },
       {
         content: 'Tabs or spaces? 🤔',
         placement: 'bottom',
-        target: '.ReactModal__Content button:nth-of-type(1)',
+        target: '.ReactModal__Content [data-component-name="SpacerItem"]:nth-of-type(2) button',
         textAlign: 'center',
       },
       {
         content: "A button! That's rare on the web",
         placement: 'bottom',
-        target: '.ReactModal__Content button:nth-of-type(2)',
+        target: '.ReactModal__Content [data-component-name="SpacerItem"]:nth-of-type(3) button',
       },
       {
         content: "Sometimes I wonder what's inside my mind",
         placement: 'bottom',
-        target: '.ReactModal__Content button:nth-of-type(3)',
+        target: '.ReactModal__Content [data-component-name="SpacerItem"]:nth-of-type(4) button',
       },
       {
         content: 'Modal, Portal, Quintal!',
         placement: 'bottom',
-        target: '.ReactModal__Content button:nth-of-type(4)',
+        target: '.ReactModal__Content [data-component-name="SpacerItem"]:nth-of-type(5) button',
       },
     ] as Step[],
-  };
+  });
+  const previousModalIsOpen = usePrevious(modalIsOpen);
 
-  public componentDidMount() {
+  useMount(() => {
     a11yChecker();
-  }
+  });
 
-  public componentDidUpdate(prevProps: any, prevState: State) {
-    if (!prevState.modalIsOpen && this.state.modalIsOpen) {
-      this.start();
+  useEffect(() => {
+    if (!previousModalIsOpen && modalIsOpen) {
+      setState({
+        run: true,
+      });
     }
-  }
+  });
 
-  private start = () => {
-    this.setState({
-      run: true,
-    });
-  };
-
-  private handleJoyrideCallback = (data: CallBackProps) => {
+  const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, type } = data;
 
     if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
-      this.setState({ run: false });
+      setState({ run: false });
     }
 
-    console.groupCollapsed(type);
-    console.log(data);
-    console.groupEnd();
+    logGroup(type, data);
   };
 
-  private openModal = () => {
-    this.setState({
+  const openModal = () => {
+    setState({
       modalIsOpen: true,
     });
   };
 
-  private closeModal = () => {
-    this.setState({
+  const closeModal = () => {
+    setState({
       modalIsOpen: false,
       run: false,
     });
   };
 
-  private afterOpenModal = () => {
-    this.setState({
+  const afterOpenModal = () => {
+    setState({
       run: true,
     });
   };
 
-  public render() {
-    const { modalIsOpen, run, steps } = this.state;
+  const customStyles = {
+    content: {
+      maxHeight: '70%',
+      textAlign: 'center' as const,
+    },
+  };
 
-    const customStyles = {
-      content: {
-        maxHeight: '70%',
-        textAlign: 'center' as const,
-      },
-    };
-
-    return (
-      <Wrapper>
-        <Joyride
-          callback={this.handleJoyrideCallback}
-          continuous={true}
-          run={run}
-          showSkipButton={true}
-          steps={steps}
-          styles={{
-            options: {
-              arrowColor: '#ff0044',
-              backgroundColor: '#ff0044',
-              overlayColor: 'rgba(255, 0, 68, 0.2)',
-              primaryColor: '#000',
-              textColor: '#fff',
-            },
-          }}
-        />
-        <Heading>It works with modals</Heading>
-        <SubHeading>
-          (using{' '}
-          <a
-            href="https://github.com/reactjs/react-modal"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open react-modal in a new window"
-          >
-            react-modal
-          </a>
-          )
-        </SubHeading>
-        <Button onClick={this.openModal}>Open Modal</Button>
-        <Modal
-          ariaHideApp={false}
-          isOpen={modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
+  return (
+    <Main centered shade="lighter" variant="green">
+      <Joyride
+        callback={handleJoyrideCallback}
+        continuous
+        run={run}
+        showSkipButton
+        steps={steps}
+        styles={{
+          options: {
+            arrowColor: theme.variants.green.lighter.bg,
+            backgroundColor: theme.variants.green.lighter.bg,
+            primaryColor: theme.colors.green,
+            textColor: '#000',
+          },
+        }}
+      />
+      <H1 mb={0}>It works with modals</H1>
+      <H2>
+        (using{' '}
+        <Anchor
+          aria-label="Open react-modal in a new window"
+          external
+          href="https://github.com/reactjs/react-modal"
+          variant="green"
         >
-          <h2>A react-modal example</h2>
-          <p>I am a modal</p>
+          react-modal
+        </Anchor>
+        )
+      </H2>
+      <Button onClick={openModal} variant="green">
+        Open Modal
+      </Button>
+      <Modal
+        ariaHideApp={false}
+        contentLabel="Example Modal"
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <h2>A react-modal example</h2>
+        <p>I am a modal</p>
+        <Spacer distribution="center">
           <Input name="test" type="text" />
-          <Button tabIndex={1}>tab navigation</Button>
-          <Button tabIndex={2}>stays</Button>
-          <Button tabIndex={3}>inside</Button>
-          <Button tabIndex={4}>the modal</Button>
-        </Modal>
-      </Wrapper>
-    );
-  }
+          <Button tabIndex={0} variant="green">
+            tab navigation
+          </Button>
+          <Button tabIndex={0} variant="green">
+            stays
+          </Button>
+          <Button tabIndex={0} variant="green">
+            inside
+          </Button>
+          <Button tabIndex={0} variant="green">
+            the modal
+          </Button>
+        </Spacer>
+      </Modal>
+    </Main>
+  );
 }

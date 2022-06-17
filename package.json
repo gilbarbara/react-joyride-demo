@@ -1,6 +1,6 @@
 {
   "name": "react-joyride-demo",
-  "version": "2.3.1",
+  "version": "2.5.0",
   "description": "React Joyride Demo",
   "author": "Gil Barbara <gilbarbara@gmail.com>",
   "repository": {
@@ -20,39 +20,34 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@gilbarbara/components": "^0.4.1",
     "a11y-checker": "^2.2.1",
-    "core-js": "^3.16.0",
-    "grommet": "^2.17.4",
-    "polyfill-array-includes": "^2.0.0",
-    "react": "^17.0.2",
-    "react-app-polyfill": "^2.0.0",
-    "react-burger-menu": "^3.0.6",
-    "react-dom": "^17.0.2",
-    "react-intl": "^5.20.6",
-    "react-joyride": "^2.3.1",
-    "react-modal": "^3.14.3",
-    "react-responsive-carousel": "^3.2.20",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^4.0.3",
-    "react-select": "^4.3.1",
-    "regenerator-runtime": "^0.13.9",
-    "styled-components": "^5.3.0",
-    "typescript": "^4.3.5"
+    "react": "^18.2.0",
+    "react-app-polyfill": "^3.0.0",
+    "react-burger-menu": "^3.0.8",
+    "react-dom": "^18.2.0",
+    "react-intl": "^6.0.4",
+    "react-joyride": "^2.5.0",
+    "react-modal": "^3.15.1",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "react-use": "^17.4.0",
+    "typescript": "^4.7.4"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.24",
-    "@types/node": "^16.4.10",
-    "@types/react": "^17.0.15",
-    "@types/react-burger-menu": "^2.8.1",
-    "@types/react-dom": "^17.0.9",
-    "@types/react-intl": "^3.0.0",
-    "@types/react-modal": "^3.12.1",
-    "@types/react-router-dom": "^5.1.8",
-    "@types/react-select": "^4.0.17",
-    "@types/styled-components": "^5.1.11",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.2"
+    "@gilbarbara/eslint-config": "^0.2.4",
+    "@gilbarbara/prettier-config": "^0.1.0",
+    "@gilbarbara/tsconfig": "^0.1.1",
+    "@gilbarbara/types": "^0.1.1",
+    "@types/jest": "^28.1.2",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.14",
+    "@types/react-burger-menu": "^2.8.3",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-modal": "^3.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,7 +55,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .ts,.tsx src",
-    "now-build": "npm run build"
+    "typecheck": "tsc --noEmit"
   },
   "browserslist": [
     ">0.2%",
@@ -68,10 +63,10 @@
     "not ie < 11",
     "not op_mini all"
   ],
-  "prettier": {
-    "jsxBracketSameLine": false,
-    "printWidth": 100,
-    "singleQuote": true,
-    "trailingComma": "all"
-  }
+  "eslintConfig": {
+    "extends": [
+      "@gilbarbara/eslint-config"
+    ]
+  },
+  "prettier": "@gilbarbara/prettier-config"
 }

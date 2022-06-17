@@ -1,11 +1,18 @@
-import 'react-app-polyfill/ie11';
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
-import 'polyfill-array-includes';
-
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 
 import App from './App';
+import GlobalStyles from './components/GlobalStyles';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const rootElement = document.getElementById('root');
+
+if (rootElement) {
+  const root = createRoot(rootElement);
+
+  root.render(
+    <StrictMode>
+      <GlobalStyles />
+      <App />
+    </StrictMode>,
+  );
+}

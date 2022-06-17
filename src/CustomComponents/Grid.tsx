@@ -1,11 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
-
-const GridWrapper = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`;
+import styled from '@emotion/styled';
+import { Box, theme } from '@gilbarbara/components';
 
 const GridImages = styled.div`
   box-sizing: border-box;
@@ -22,7 +16,7 @@ const GridImages = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  background-color: #f3c98b;
+  background-color: ${theme.variants.primary.lightest.bg};
   padding-bottom: calc(100% / 1.5);
   position: relative;
   width: 100%;
@@ -37,27 +31,27 @@ const Img = styled.img`
 
 export default function Grid() {
   return (
-    <GridWrapper>
+    <Box align="center" display="flex" justify="center">
       <GridImages className="image-grid">
         <ImgWrapper>
-          <Img src="https://placeimg.com/1024/683/any/grayscale?1" alt="1" />
+          <Img alt="1" src="https://placeimg.com/1024/683/people/grayscale?1" />
         </ImgWrapper>
         <ImgWrapper>
-          <Img src="https://placeimg.com/1024/683/any/grayscale?2" alt="2" />
+          <Img alt="2" src="https://placeimg.com/1024/683/people/grayscale?2" />
         </ImgWrapper>
         <ImgWrapper>
-          <Img src="https://placeimg.com/1024/683/any/grayscale?3" alt="3" />
+          <Img alt="3" src="https://placeimg.com/1024/683/people/grayscale?3" />
         </ImgWrapper>
         <ImgWrapper>
-          <Img src="https://placeimg.com/1024/683/any/grayscale?4" alt="4" />
+          <Img alt="4" src="https://placeimg.com/1024/683/people/grayscale?4" />
         </ImgWrapper>
         <ImgWrapper>
-          <Img src="https://placeimg.com/1024/683/any/grayscale?5" alt="5" />
+          <Img alt="5" src="https://placeimg.com/1024/683/people/grayscale?5" />
         </ImgWrapper>
         <ImgWrapper>
-          <Img src="https://placeimg.com/1024/683/any/grayscale?6" alt="6" />
+          <Img alt="6" src="https://placeimg.com/1024/683/people/grayscale?6" />
         </ImgWrapper>
       </GridImages>
-    </GridWrapper>
+    </Box>
   );
 }

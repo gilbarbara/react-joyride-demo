@@ -1,27 +1,44 @@
-import React from 'react';
+import React, { forwardRef, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { keyframes } from 'styled-components';
 import Joyride, {
   BeaconRenderProps,
   CallBackProps,
+  STATUS,
   Step,
   StoreHelpers,
   TooltipRenderProps,
-  STATUS,
 } from 'react-joyride';
-import Select from 'react-select';
+import { useMount, useSetState } from 'react-use';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import {
+  Box,
+  Button,
+  Dropdown,
+  H1,
+  H3,
+  Icon,
+  Input,
+  Main,
+  Spacer,
+  theme,
+  Types,
+} from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
-import Icon from './Icon';
-import Intl, { messages } from './Intl';
 import Grid from './Grid';
+import Intl, { messages } from './Intl';
+
+import { logGroup } from '../modules/helpers';
 
 interface Props {
+  locale: string;
   setLocale: (locale: string) => void;
 }
 
 interface State {
+  complete: boolean;
   run: boolean;
   steps: Step[];
 }
@@ -31,115 +48,7 @@ interface IntlProps {
   locale: string;
 }
 
-const Wrapper = styled.div`
-  background-color: #ccc;
-  box-sizing: border-box;
-  min-height: 100vh;
-  padding: 20px 0 70px;
-  position: relative;
-`;
-
-const Heading = styled.h1`
-  margin: 0;
-  text-align: center;
-`;
-
-const SubHeading = styled.h3`
-  color: #f04;
-  text-align: center;
-
-  a {
-    color: inherit;
-    text-decoration: underline;
-  }
-`;
-
-const Row = styled.div`
-  align-items: center;
-  display: flex;
-  white-space: nowrap;
-`;
-
-const Button = styled.button`
-  background-color: #f04;
-  color: #fff;
-  margin-right: ${(props: { spacer?: boolean }) => (props.spacer ? 'auto' : 0)};
-  padding: 1.1rem;
-`;
-
-const Input = styled.input`
-  -webkit-appearance: none;
-  border: 0.1rem solid #f04;
-  padding: 0.6rem;
-  width: 75%;
-`;
-
-const TooltipBody = styled.div`
-  background-color: #fff;
-  min-width: 290px;
-  max-width: 420px;
-  position: relative;
-`;
-
-const TooltipContent = styled.div`
-  color: #000;
-  padding: 20px;
-`;
-
-const TooltipTitle = styled.h2`
-  color: #f04;
-  padding: 20px;
-  margin: 0;
-`;
-
-const TooltipFooter = styled.div`
-  background-color: #ffccda;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-  padding: 5px;
-
-  * + * {
-    margin-left: 0.5rem;
-  }
-
-  ${Button} {
-    padding: 0.8rem;
-  }
-`;
-
-const Tooltip = ({
-  continuous,
-  index,
-  isLastStep,
-  step,
-  backProps,
-  primaryProps,
-  skipProps,
-  tooltipProps,
-}: TooltipRenderProps) => {
-  return (
-    <TooltipBody {...tooltipProps}>
-      {step.title && <TooltipTitle>{step.title}</TooltipTitle>}
-      {step.content && <TooltipContent>{step.content}</TooltipContent>}
-      <TooltipFooter>
-        {!isLastStep && (
-          <Button {...skipProps} spacer={true}>
-            <FormattedMessage id="skip" />
-          </Button>
-        )}
-        {index > 0 && (
-          <Button {...backProps}>
-            <FormattedMessage id="back" />
-          </Button>
-        )}
-        <Button {...primaryProps}>
-          <FormattedMessage id={continuous ? 'next' : 'close'} />
-        </Button>
-      </TooltipFooter>
-    </TooltipBody>
-  );
-};
+const variant = theme.variants.primary;
 
 const pulse = keyframes`
   0% {
@@ -147,67 +56,143 @@ const pulse = keyframes`
   }
 
   55% {
-    background-color: rgba(255, 100, 100, 0.9);
+    background-color: rgba(48, 48, 232, 0.9);
     transform: scale(1.6);
   }
 `;
 
+const languageOptions: Types.DropdownItem[] = [
+  {
+    prefix: <Icon name="globe-alt" />,
+    label: 'English',
+    value: 'en',
+  },
+  {
+    prefix: <Icon name="globe-alt" />,
+    label: 'Español',
+    value: 'es',
+  },
+  {
+    prefix: <Icon name="globe-alt" />,
+    label: 'Deutsch',
+    value: 'de',
+  },
+  {
+    prefix: <Icon name="globe-alt" />,
+    label: 'Français',
+    value: 'fr',
+  },
+  {
+    prefix: <Icon name="globe-alt" />,
+    label: 'Português',
+    value: 'pt',
+  },
+];
+
 const BeaconButton = styled.button`
   animation: ${pulse} 1s ease-in-out infinite;
-  background-color: rgba(255, 27, 14, 0.6);
+  background-color: rgba(48, 48, 232, 0.6);
+  border: 0;
   border-radius: 50%;
   display: inline-block;
   height: 3rem;
   width: 3rem;
 `;
 
-const Selector = styled.div`
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 250px;
-`;
+const BeaconComponent = forwardRef<HTMLButtonElement, BeaconRenderProps>((props, ref) => {
+  return <BeaconButton ref={ref} {...props} />;
+});
 
-const Option = styled.div`
-  align-items: center;
-  display: flex;
+function IntlWrapper({ children, locale }: IntlProps) {
+  return <Intl locale={locale}>{children}</Intl>;
+}
 
-  svg {
-    margin-right: 8px;
-  }
-`;
+function Tooltip({
+  backProps,
+  continuous,
+  index,
+  isLastStep,
+  primaryProps,
+  skipProps,
+  step,
+  tooltipProps,
+}: TooltipRenderProps) {
+  return (
+    <Box
+      {...tooltipProps}
+      border={false}
+      maxWidth={420}
+      minWidth={290}
+      overflow="hidden"
+      radius="md"
+      variant="white"
+    >
+      <Box padding="md">
+        {step.title && (
+          <H3 mb="md" variant="primary">
+            {step.title}
+          </H3>
+        )}
+        {step.content && <Box>{step.content}</Box>}
+      </Box>
+      <Box padding="xs" shade="lightest" variant="primary">
+        <Spacer distribution="space-between">
+          {!isLastStep && (
+            <Button {...skipProps} size="sm">
+              <FormattedMessage id="skip" />
+            </Button>
+          )}
+          <Spacer>
+            {index > 0 && (
+              <Button {...backProps} size="sm">
+                <FormattedMessage id="back" />
+              </Button>
+            )}
+            <Button {...primaryProps} size="sm">
+              <FormattedMessage id={continuous ? 'next' : 'close'} />
+            </Button>
+          </Spacer>
+        </Spacer>
+      </Box>
+    </Box>
+  );
+}
 
-const IntlWrapper = ({ children, locale }: IntlProps) => <Intl locale={locale}>{children}</Intl>;
-
-class Custom extends React.Component<Props, State> {
-  public state = {
+function Custom(props: Props) {
+  const { locale, setLocale } = props;
+  const [{ complete, run, steps }, setState] = useSetState<State>({
+    complete: false,
     run: true,
     steps: [
       {
         content: (
           <React.Fragment>
             <h5 style={{ marginTop: 0 }}>Weekly magic on your inbox</h5>
-            <Row>
-              <Input type="email" placeholder="Type your email" />
+            <Spacer>
+              <Input name="email" placeholder="Type your email" type="email" />
               <Button>SEND</Button>
-            </Row>
+            </Spacer>
           </React.Fragment>
         ),
         placementBeacon: 'top' as const,
         target: '.image-grid div:nth-child(1)',
-        textAlign: 'center',
         title: 'Our awesome projects',
       },
       {
         content: 'Change the world, obviously',
         disableCloseOnEsc: true,
-        disableOverlayClicks: true,
+        disableOverlay: true,
         target: '.image-grid div:nth-child(2)',
         title: 'Our Mission',
       },
       {
         content: 'Special stuff just for you!',
         placement: 'top' as const,
+        styles: {
+          options: {
+            arrowColor: variant.lightest.bg,
+          },
+        },
         target: '.image-grid div:nth-child(4)',
         title: 'The good stuff',
       },
@@ -215,12 +200,12 @@ class Custom extends React.Component<Props, State> {
         content: (
           <div>
             <svg
-              width="96px"
               height="96px"
-              viewBox="0 0 96 96"
-              xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="xMidYMid"
               role="img"
+              viewBox="0 0 96 96"
+              width="96px"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <g>
                 <path
@@ -236,151 +221,94 @@ class Custom extends React.Component<Props, State> {
         title: 'We are the people',
       },
     ],
-  };
+  });
+  const helpers = useRef<StoreHelpers>();
 
-  private helpers?: StoreHelpers;
-
-  public componentDidMount() {
+  useMount(() => {
     a11yChecker();
-  }
+  });
 
-  private setHelpers = (helpers: StoreHelpers) => {
-    this.helpers = helpers;
+  const setHelpers = (storeHelpers: StoreHelpers) => {
+    helpers.current = storeHelpers;
   };
 
-  private handleClickRestart = () => {
-    const { reset } = this.helpers!;
+  const handleClickRestart = () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const { reset } = helpers.current!;
 
+    setState({ complete: false });
     reset(true);
   };
 
-  private handleSelect = (option: { value: string }) => {
-    const { setLocale } = this.props;
-    setLocale(option.value);
-  };
-
-  private handleJoyrideCallback = (props: CallBackProps) => {
-    const { status, type } = props;
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { status, type } = data;
     const options: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (options.includes(status)) {
-      this.setState({ run: false });
+      setState({ complete: true, run: false });
     }
 
-    console.groupCollapsed(type);
-    console.log(props);
-    console.groupEnd();
+    logGroup(type, data);
   };
 
-  public render() {
-    const { run, steps } = this.state;
+  const handleSelect = (options: Types.DropdownItem[]) => {
+    const [selected] = options;
 
-    return (
-      <Wrapper>
-        <FormattedMessage id="title">{(value) => <Heading>{value}</Heading>}</FormattedMessage>
-        <SubHeading>
-          (<FormattedMessage id="with" tagName="span" />{' '}
-          <a
-            href="https://github.com/styled-components/styled-components"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open styled-components in a new window"
-          >
-            styled-components
-          </a>
-          )
-        </SubHeading>
-        <Selector>
-          <Select
-            // @ts-ignore
-            placeholder={
-              <Option>
-                <Icon /> Select your language
-              </Option>
-            }
-            // @ts-ignore
-            onChange={this.handleSelect}
-            options={[
-              {
-                label: (
-                  <Option>
-                    <Icon /> English
-                  </Option>
-                ),
-                value: 'en',
-              },
-              {
-                label: (
-                  <Option>
-                    <Icon /> Español
-                  </Option>
-                ),
-                value: 'es',
-              },
-              {
-                label: (
-                  <Option>
-                    <Icon /> Deutsch
-                  </Option>
-                ),
-                value: 'de',
-              },
-              {
-                label: (
-                  <Option>
-                    <Icon /> Français
-                  </Option>
-                ),
-                value: 'fr',
-              },
-            ]}
-          />
-          <button onClick={this.handleClickRestart}>
-            <FormattedMessage id="restart" />
-          </button>
-        </Selector>
-        <Joyride
-          run={run}
-          steps={steps}
-          beaconComponent={BeaconButton as React.ElementType<BeaconRenderProps>}
-          callback={this.handleJoyrideCallback}
-          getHelpers={this.setHelpers}
-          locale={messages}
-          scrollToFirstStep={true}
-          showSkipButton={true}
-          tooltipComponent={Tooltip}
-          styles={{
-            options: {
-              arrowColor: '#fff',
-              zIndex: 2000000,
-            },
-            overlay: {
-              backgroundColor: 'rgba(79, 46, 8, 0.5)',
-            },
-          }}
+    setLocale(`${selected.value}`);
+  };
+
+  return (
+    <Main>
+      <FormattedMessage id="title">
+        {value => (
+          <H1 align="center" mb={0}>
+            {value}
+          </H1>
+        )}
+      </FormattedMessage>
+      <Spacer direction="vertical" distribution="center" my="md">
+        <Dropdown
+          items={languageOptions}
+          onChange={handleSelect}
+          placeholder="Select your language"
+          values={languageOptions.filter(d => d.value === locale)}
         />
-        <Grid />
-      </Wrapper>
-    );
-  }
+        {complete && (
+          <Button onClick={handleClickRestart} size="sm">
+            <FormattedMessage id="restart" />
+          </Button>
+        )}
+      </Spacer>
+      <Joyride
+        beaconComponent={BeaconComponent}
+        callback={handleJoyrideCallback}
+        getHelpers={setHelpers}
+        locale={messages}
+        run={run}
+        scrollToFirstStep
+        showSkipButton
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 2000000,
+          },
+          overlay: {
+            backgroundColor: 'rgba(79, 46, 8, 0.5)',
+          },
+        }}
+        tooltipComponent={Tooltip}
+      />
+      <Grid />
+    </Main>
+  );
 }
 
-export default class CustomIntl extends React.Component<IntlProps> {
-  public state = {
-    locale: 'en',
-  };
+export default function CustomIntl() {
+  const [locale, setLocale] = useState('en');
 
-  private setLocale = (locale: string) => {
-    this.setState({ locale });
-  };
-
-  public render() {
-    const { locale } = this.state;
-
-    return (
-      <IntlWrapper locale={locale}>
-        <Custom setLocale={this.setLocale} />
-      </IntlWrapper>
-    );
-  }
+  return (
+    <IntlWrapper locale={locale}>
+      <Custom locale={locale} setLocale={setLocale} />
+    </IntlWrapper>
+  );
 }

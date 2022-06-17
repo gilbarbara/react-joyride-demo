@@ -1,81 +1,56 @@
-import { PlainObject, RefParams } from '../types/common';
-import React from 'react';
+import { Box, DataTable, DataTableColumn, H2, Text } from '@gilbarbara/components';
 
-import { Box, DataTable, DataTableProps, Heading, Meter, MeterProps, Text } from 'grommet';
 import ContentBox from '../components/ContentBox';
 
-const columns: DataTableProps['columns'] = [
+type Columns = 'name' | 'percentage' | 'paid';
+
+const columns: DataTableColumn<Columns>[] = [
   {
-    footer: 'Total',
-    header: <Text>Name</Text>,
-    primary: true,
-    property: 'name',
+    key: 'name',
+    title: <Text>Name</Text>,
+    size: 120,
   },
   {
-    header: 'Percent Complete',
-    property: 'percent',
-    render: (datum: PlainObject) => (
-      <Box pad={{ vertical: 'xsmall' }}>
-        <Meter
-          values={[{ value: datum.percent }] as MeterProps['values']}
-          thickness="small"
-          size="small"
-        />
-      </Box>
-    ),
+    key: 'percentage',
+    title: 'Percentage',
+    min: 120,
   },
   {
-    aggregate: 'sum',
-    align: 'end',
-    footer: { aggregate: true },
-    header: 'Paid',
-    property: 'paid',
-    render: (datum: PlainObject) => datum.paid,
+    key: 'paid',
+    title: 'Paid',
   },
 ];
 
-const DATA = [
+const data = [
   {
     name: 'Alan',
-    paid: 0,
-    percent: 0,
+    paid: 123,
+    percentage: <Box height={8} variant="green" width={15} />,
   },
   {
     name: 'Beatrice',
-    paid: 1234,
-    percent: 30,
-  },
-  {
-    name: 'Chris',
-    paid: 2345,
-    percent: 40,
+    paid: 234,
+    percentage: <Box height={8} variant="green" width={30} />,
   },
   {
     name: 'Eric',
-    paid: 3456,
-    percent: 80,
-  },
-  {
-    name: 'Louise',
-    paid: 3456,
-    percent: 40,
+    paid: 456,
+    percentage: <Box height={8} variant="green" width={95} />,
   },
   {
     name: 'Tracy',
-    paid: 2345,
-    percent: 10,
+    paid: 246,
+    percentage: <Box height={8} variant="green" width={50} />,
   },
 ];
 
-const Users = ({ setRef }: RefParams) => (
-  <Box fill={true} data-name="users" ref={setRef}>
-    <Heading level={2} style={{ marginTop: 0 }}>
-      Users
-    </Heading>
-    <ContentBox>
-      <DataTable columns={columns} data={DATA} />
-    </ContentBox>
-  </Box>
-);
-
-export default Users;
+export default function Users() {
+  return (
+    <Box>
+      <H2>Users</H2>
+      <ContentBox>
+        <DataTable clean columns={columns} data={data} />
+      </ContentBox>
+    </Box>
+  );
+}

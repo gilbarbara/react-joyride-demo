@@ -4,5 +4,5 @@ A few [react-joyride](https://github.com/gilbarbara/react-joyride) examples to h
 
 Site: https://react-joyride.com
 
-Codesandbox: https://codesandbox.io/s/github/gilbarbara/react-joyride-demo
+Codesandbox: https://codesandbox.io/s/github/gilbarbara/react-joyride-demo/tree/main
 

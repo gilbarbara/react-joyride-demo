@@ -1,23 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Button, Main, NonIdealState } from '@gilbarbara/components';
 
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-`;
-
-const FourZeroFour = styled.h1`
-  font-size: 14rem;
-`;
-
-const NotFound = () => {
+function NotFound() {
   return (
-    <Wrapper>
-      <FourZeroFour>404</FourZeroFour>
-    </Wrapper>
+    <Main centered>
+      <NonIdealState type="not-found">
+        <Link to="/">
+          <Button variant="black">Go Home</Button>
+        </Link>
+      </NonIdealState>
+    </Main>
   );
-};
+}
 
 export default NotFound;

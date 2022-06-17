@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 
 interface Messages {
@@ -6,6 +6,7 @@ interface Messages {
 }
 
 interface IntlProps {
+  children: ReactNode;
   locale: string;
 }
 
@@ -19,7 +20,6 @@ export const messages: Messages = {
     restart: 'Starten Sie die Tour neu',
     skip: 'Überspringen',
     title: 'Sie können benutzerdefinierte Komponenten verwenden!',
-    with: 'mit',
   },
   en: {
     back: 'Back',
@@ -30,7 +30,6 @@ export const messages: Messages = {
     restart: 'Restart the tour',
     skip: 'Skip',
     title: 'You can use custom components!',
-    with: 'with',
   },
   es: {
     back: 'Espalda',
@@ -41,7 +40,6 @@ export const messages: Messages = {
     restart: 'Reiniciar el tour',
     skip: 'Omitir',
     title: '¡Puedes usar componentes personalizados!',
-    with: 'con',
   },
   fr: {
     back: 'Retour',
@@ -52,18 +50,25 @@ export const messages: Messages = {
     restart: 'Redémarrer le tour',
     skip: 'Sauter',
     title: 'Vous pouvez utiliser des composants personnalisés!',
-    with: 'avec',
+  },
+  pt: {
+    back: 'Voltar',
+    close: 'Fechar',
+    last: 'Último',
+    next: 'Próximo',
+    open: 'Abrir o diálogo',
+    restart: 'Reiniciar o tour',
+    skip: 'Pular',
+    title: 'Você pode usar componentes personalizados!',
   },
 };
 
-export default class Intl extends React.Component<IntlProps, any> {
-  public render() {
-    const { children, locale } = this.props;
+export default function Intl(props: IntlProps) {
+  const { children, locale } = props;
 
-    return (
-      <IntlProvider locale={locale} messages={messages[locale]}>
-        {children}
-      </IntlProvider>
-    );
-  }
+  return (
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      {children}
+    </IntlProvider>
+  );
 }

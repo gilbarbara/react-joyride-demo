@@ -1,19 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Box } from 'grommet';
-
-const Boxy = styled(Box)`
-  margin: 0 auto;
-  max-width: 400px;
-`;
+import { Box } from '@gilbarbara/components';
 
 interface Props {
   children: React.ReactNode;
 }
 
-const ContentBox = ({ children }: Props) => (
-  // @ts-ignore
-  <Boxy align="center">{children}</Boxy>
-);
+function ContentBox({ children }: Props) {
+  return (
+    <Box display="flex" justify="center" maxWidth={400} mx="auto">
+      {children}
+    </Box>
+  );
+}
 
 export default ContentBox;

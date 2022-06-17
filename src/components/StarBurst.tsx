@@ -1,6 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
-import { PlainObject } from '../types/common';
+import styled from '@emotion/styled';
+import { AnyObject } from '@gilbarbara/types';
 
 const Component = styled.div`
   align-items: center;
@@ -51,7 +50,7 @@ const Component = styled.div`
   }
 `;
 
-export default function StarBurst({ children, ...rest }: PlainObject) {
+export default function StarBurst({ children, ...rest }: AnyObject) {
   return (
     <Component {...rest}>
       <span>{children}</span>
