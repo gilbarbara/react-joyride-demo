@@ -118,7 +118,6 @@ export default function BasicDemo(props: Props) {
       <Joyride
         callback={handleJoyrideCallback}
         continuous
-        hideBackButton
         hideCloseButton
         run={run}
         scrollToFirstStep
