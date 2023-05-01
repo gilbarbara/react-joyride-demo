@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 import Modal from 'react-modal';
 import { useMount, usePrevious, useSetState } from 'react-use';
-import { Anchor, Button, H1, H2, Input, Main, Spacer, theme } from '@gilbarbara/components';
+import { Anchor, Button, H1, H2, Input, Page, Spacer, theme } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -100,7 +100,7 @@ export default function ModalDemo() {
   };
 
   return (
-    <Main centered shade="lighter" variant="green">
+    <Page centered shade="lighter" variant="green">
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -158,6 +158,6 @@ export default function ModalDemo() {
           </Button>
         </Spacer>
       </Modal>
-    </Main>
+    </Page>
   );
 }

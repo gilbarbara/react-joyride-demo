@@ -5,7 +5,7 @@ import Joyride, { ACTIONS, CallBackProps, EVENTS, STATUS, Step } from 'react-joy
 import { Link } from 'react-router-dom';
 import { useMount, useSetState } from 'react-use';
 import styled from '@emotion/styled';
-import { Box, ButtonBase, H1, Icon, Main, Spacer } from '@gilbarbara/components';
+import { Box, ButtonUnstyled, H1, Icon, Page, Spacer } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -35,7 +35,7 @@ const GridBox = styled(Box)`
   }
 `;
 
-const Hamburger = styled(ButtonBase)`
+const Hamburger = styled(ButtonUnstyled)`
   left: 16px;
   position: absolute;
   top: 16px;
@@ -210,7 +210,7 @@ export default function ControlledDemo() {
   };
 
   return (
-    <Main shade="dark" variant="gray">
+    <Page shade="dark" variant="gray">
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -282,6 +282,6 @@ export default function ControlledDemo() {
           </GridBox>
         </Box>
       </Box>
-    </Main>
+    </Page>
   );
 }

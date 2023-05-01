@@ -19,7 +19,7 @@ import {
   H3,
   Icon,
   Input,
-  Main,
+  Page,
   Spacer,
   theme,
   Types,
@@ -61,7 +61,7 @@ const pulse = keyframes`
   }
 `;
 
-const languageOptions: Types.DropdownItem[] = [
+const languageOptions: Types.DropdownOption[] = [
   {
     prefix: <Icon name="globe-alt" />,
     label: 'English',
@@ -251,14 +251,14 @@ function Custom(props: Props) {
     logGroup(type, data);
   };
 
-  const handleSelect = (options: Types.DropdownItem[]) => {
+  const handleSelect = (options: Types.DropdownOption[]) => {
     const [selected] = options;
 
     setLocale(`${selected.value}`);
   };
 
   return (
-    <Main>
+    <Page>
       <FormattedMessage id="title">
         {value => (
           <H1 align="center" mb={0}>
@@ -299,7 +299,7 @@ function Custom(props: Props) {
         tooltipComponent={Tooltip}
       />
       <Grid />
-    </Main>
+    </Page>
   );
 }
 

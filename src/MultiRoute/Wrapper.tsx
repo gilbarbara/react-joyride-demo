@@ -1,7 +1,7 @@
 import Joyride, { CallBackProps } from 'react-joyride';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useMount } from 'react-use';
-import { Main, Paragraph, theme } from '@gilbarbara/components';
+import { Page, Paragraph, theme } from '@gilbarbara/components';
 
 import { useAppContext } from './context';
 import Header from './Header';
@@ -87,7 +87,7 @@ export default function MultiRouteWrapper() {
   };
 
   return (
-    <Main>
+    <Page>
       <Header />
       <Outlet />
       <Joyride
@@ -105,6 +105,6 @@ export default function MultiRouteWrapper() {
           },
         }}
       />
-    </Main>
+    </Page>
   );
 }

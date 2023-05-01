@@ -3,7 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Joyride, { ACTIONS, CallBackProps, EVENTS, STATUS, Step } from 'react-joyride';
 import { Carousel } from 'react-responsive-carousel';
 import { useMeasure, useMount, useSetState } from 'react-use';
-import { Anchor, Box, BoxCenter, Button, H4, H5, Main, theme } from '@gilbarbara/components';
+import { Anchor, Box, BoxCenter, Button, H4, H5, Page, theme } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -92,7 +92,7 @@ export default function CarouselDemo() {
   };
 
   return (
-    <Main shade="lighter" variant="red">
+    <Page shade="lighter" variant="red">
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -117,13 +117,25 @@ export default function CarouselDemo() {
         >
           <img
             alt="1"
-            src={`https://placeimg.com/${imageWidth}/${imageHeight}/any/grayscale?1`}
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?blue`}
             style={{ cursor: 'pointer' }}
           />
-          <img alt="2" src={`https://placeimg.com/${imageWidth}/${imageHeight}/any/grayscale?2`} />
-          <img alt="3" src={`https://placeimg.com/${imageWidth}/${imageHeight}/any/grayscale?3`} />
-          <img alt="4" src={`https://placeimg.com/${imageWidth}/${imageHeight}/any/grayscale?4`} />
-          <img alt="5" src={`https://placeimg.com/${imageWidth}/${imageHeight}/any/grayscale?5`} />
+          <img
+            alt="2"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}/?green`}
+          />
+          <img
+            alt="3"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?red`}
+          />
+          <img
+            alt="4"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?purple`}
+          />
+          <img
+            alt="5"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?yellow`}
+          />
         </Carousel>
       </Box>
       {!run && stepIndex > 0 && (
@@ -131,6 +143,6 @@ export default function CarouselDemo() {
           <Button onClick={handleClickReset}>Restart</Button>
         </BoxCenter>
       )}
-    </Main>
+    </Page>
   );
 }

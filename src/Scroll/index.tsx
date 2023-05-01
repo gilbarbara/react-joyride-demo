@@ -1,7 +1,7 @@
 import Joyride, { CallBackProps, Step } from 'react-joyride';
 import { useMount, useSetState } from 'react-use';
 import styled from '@emotion/styled';
-import { Box, H1, Main } from '@gilbarbara/components';
+import { Box, H1, Page } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -60,7 +60,7 @@ export default function ScrollDemo() {
   };
 
   return (
-    <Main centered shade="lighter" textAlign="left" variant="gray">
+    <Page centered shade="lighter" textAlign="left" variant="gray">
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -240,6 +240,6 @@ export default function ScrollDemo() {
           </p>
         </div>
       </Box>
-    </Main>
+    </Page>
   );
 }
