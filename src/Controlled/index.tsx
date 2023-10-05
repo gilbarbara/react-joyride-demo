@@ -210,7 +210,7 @@ export default function ControlledDemo() {
   };
 
   return (
-    <Page shade="dark" variant="gray">
+    <Page bg="gray.700">
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -242,7 +242,7 @@ export default function ControlledDemo() {
         }}
         width={240}
       >
-        <Box ref={sidebar} fill padding="md" variant="white">
+        <Box ref={sidebar} bg="white" fill padding="md">
           <Spacer direction="vertical">
             <Link className="menu-item" to="/">
               Home
@@ -268,16 +268,16 @@ export default function ControlledDemo() {
       <Box id="innerContainer">
         <H1 align="center">DASHBOARD</H1>
         <Box display="flex" wrap="wrap">
-          <GridBox ref={calendar} padding="md" textAlign="center" variant="green">
+          <GridBox ref={calendar} bg="green" padding="md" textAlign="center">
             <Calendar />
           </GridBox>
-          <GridBox ref={growth} padding="md" textAlign="center" variant="purple">
+          <GridBox ref={growth} bg="purple" padding="md" textAlign="center">
             <Growth />
           </GridBox>
-          <GridBox ref={users} padding="md" textAlign="center" variant="blue">
+          <GridBox ref={users} bg="blue" padding="md" textAlign="center">
             <Users />
           </GridBox>
-          <GridBox ref={connections} padding="md" textAlign="center" variant="red">
+          <GridBox ref={connections} bg="red" padding="md" textAlign="center">
             <Connections />
           </GridBox>
         </Box>

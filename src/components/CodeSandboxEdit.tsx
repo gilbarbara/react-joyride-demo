@@ -2,7 +2,7 @@ import { Anchor, BoxCenter } from '@gilbarbara/components';
 
 export default function CodeSandboxEdit() {
   return (
-    <BoxCenter pb="jumbo" pt="xl" px="md" shade="lightest" variant="gray">
+    <BoxCenter bg="gray.100" pb="jumbo" pt="xl" px="md">
       <Anchor
         aria-label="Edit react-joyride on CodeSandbox"
         display="block"

@@ -63,27 +63,27 @@ const pulse = keyframes`
 
 const languageOptions: Types.DropdownOption[] = [
   {
-    prefix: <Icon name="globe-alt" />,
+    prefix: <Icon name="globe" />,
     label: 'English',
     value: 'en',
   },
   {
-    prefix: <Icon name="globe-alt" />,
+    prefix: <Icon name="globe" />,
     label: 'Español',
     value: 'es',
   },
   {
-    prefix: <Icon name="globe-alt" />,
+    prefix: <Icon name="globe" />,
     label: 'Deutsch',
     value: 'de',
   },
   {
-    prefix: <Icon name="globe-alt" />,
+    prefix: <Icon name="globe" />,
     label: 'Français',
     value: 'fr',
   },
   {
-    prefix: <Icon name="globe-alt" />,
+    prefix: <Icon name="globe" />,
     label: 'Português',
     value: 'pt',
   },
@@ -120,22 +120,22 @@ function Tooltip({
   return (
     <Box
       {...tooltipProps}
+      bg="white"
       border={false}
       maxWidth={420}
       minWidth={290}
       overflow="hidden"
       radius="md"
-      variant="white"
     >
       <Box padding="md">
         {step.title && (
-          <H3 mb="md" variant="primary">
+          <H3 color="primary" mb="md">
             {step.title}
           </H3>
         )}
         {step.content && <Box>{step.content}</Box>}
       </Box>
-      <Box padding="xs" shade="lightest" variant="primary">
+      <Box bg="primary.100" padding="xs">
         <Spacer distribution="space-between">
           {!isLastStep && (
             <Button {...skipProps} size="sm">
@@ -190,7 +190,7 @@ function Custom(props: Props) {
         placement: 'top' as const,
         styles: {
           options: {
-            arrowColor: variant.lightest.bg,
+            arrowColor: variant['100'],
           },
         },
         target: '.image-grid div:nth-child(4)',

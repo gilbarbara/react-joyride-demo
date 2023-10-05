@@ -14,12 +14,12 @@ export default function Home() {
 
   return (
     <Box>
-      <H2 align="center" variant="purple">
+      <H2 align="center" color="purple">
         <span id="home">Home</span>
       </H2>
       {!run && (
         <Box padding="xl" textAlign="center">
-          <Button onClick={handleClickStart} variant="black">
+          <Button bg="black" onClick={handleClickStart}>
             Start the tour
           </Button>
         </Box>

@@ -100,7 +100,7 @@ export default function ModalDemo() {
   };
 
   return (
-    <Page centered shade="lighter" variant="green">
+    <Page bg="green.200" centered>
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -109,8 +109,8 @@ export default function ModalDemo() {
         steps={steps}
         styles={{
           options: {
-            arrowColor: theme.variants.green.lighter.bg,
-            backgroundColor: theme.variants.green.lighter.bg,
+            arrowColor: theme.variants.green['200'],
+            backgroundColor: theme.variants.green['200'],
             primaryColor: theme.colors.green,
             textColor: '#000',
           },
@@ -121,15 +121,15 @@ export default function ModalDemo() {
         (using{' '}
         <Anchor
           aria-label="Open react-modal in a new window"
+          color="green"
           external
           href="https://github.com/reactjs/react-modal"
-          variant="green"
         >
           react-modal
         </Anchor>
         )
       </H2>
-      <Button onClick={openModal} variant="green">
+      <Button bg="green" onClick={openModal}>
         Open Modal
       </Button>
       <Modal
@@ -144,16 +144,16 @@ export default function ModalDemo() {
         <p>I am a modal</p>
         <Spacer distribution="center">
           <Input name="test" type="text" />
-          <Button tabIndex={0} variant="green">
+          <Button bg="green" tabIndex={0}>
             tab navigation
           </Button>
-          <Button tabIndex={0} variant="green">
+          <Button bg="green" tabIndex={0}>
             stays
           </Button>
-          <Button tabIndex={0} variant="green">
+          <Button bg="green" tabIndex={0}>
             inside
           </Button>
-          <Button tabIndex={0} variant="green">
+          <Button bg="green" tabIndex={0}>
             the modal
           </Button>
         </Spacer>

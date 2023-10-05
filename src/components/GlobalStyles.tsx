@@ -49,7 +49,9 @@ export default function GlobalStyles() {
         input:-webkit-autofill:hover,
         input:-webkit-autofill:focus,
         input:-webkit-autofill:active {
-          transition: background-color 50000s ease-in-out 0s, color 5000s ease-in-out 0s;
+          transition:
+            background-color 50000s ease-in-out 0s,
+            color 5000s ease-in-out 0s;
         }
 
         .github-corner {

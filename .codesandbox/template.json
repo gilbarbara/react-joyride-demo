@@ -1,0 +1,11 @@
+{
+  "title": "React Joyride Demo",
+  "description": "A few react-joyride examples to help you get started!",
+  "iconUrl": "https://github.com/codesandbox/sandbox-templates/blob/main/react-vite-ts/.codesandbox/icon.png?raw=true",
+  "tags": [
+    "react",
+    "vite",
+    "typescript"
+  ],
+  "published": true
+}

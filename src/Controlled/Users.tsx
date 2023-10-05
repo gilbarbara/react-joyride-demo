@@ -25,22 +25,22 @@ const data = [
   {
     name: 'Alan',
     paid: 123,
-    percentage: <Box height={8} variant="green" width={15} />,
+    percentage: <Box bg="green" height={8} width={15} />,
   },
   {
     name: 'Beatrice',
     paid: 234,
-    percentage: <Box height={8} variant="green" width={30} />,
+    percentage: <Box bg="green" height={8} width={30} />,
   },
   {
     name: 'Eric',
     paid: 456,
-    percentage: <Box height={8} variant="green" width={95} />,
+    percentage: <Box bg="green" height={8} width={95} />,
   },
   {
     name: 'Tracy',
     paid: 246,
-    percentage: <Box height={8} variant="green" width={50} />,
+    percentage: <Box bg="green" height={8} width={50} />,
   },
 ];
 

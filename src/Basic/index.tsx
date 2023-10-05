@@ -130,26 +130,26 @@ export default function BasicDemo(props: Props) {
           },
         }}
       />
-      <Section className="demo__hero" variant="red">
-        <Box align="center" colorVariant="white" direction="column" display="flex" maxWidth={600}>
+      <Section bg="red" className="demo__hero">
+        <Box align="center" color="white" direction="column" display="flex" maxWidth={600}>
           <StarBurst className="star-burst">V2</StarBurst>
           <Logo aria-hidden breakpoint={breakpoint} />
           <Paragraph align="center" style={{ fontSize: breakpoint === 'lg' ? 32 : 18 }}>
             Create guided tours for your apps
           </Paragraph>
-          <Divider mb="xl" variant="white" />
-          <Button onClick={handleClickStart} size="lg" variant="white">
+          <Divider color="white" mb="xl" />
+          <Button bg="white" onClick={handleClickStart} size="lg">
             Start
           </Button>
         </Box>
       </Section>
-      <Section className="demo__projects" justify="start" variant="orange">
+      <Section bg="orange" className="demo__projects" justify="start">
         <H2>OUR PROJECTS</H2>
       </Section>
-      <Section className="demo__how-it-works" justify="start" variant="green">
+      <Section bg="green" className="demo__how-it-works" justify="start">
         <H2>HOW DOES IT WORK</H2>
       </Section>
-      <Section className="demo__about" justify="start" variant="blue">
+      <Section bg="blue" className="demo__about" justify="start">
         <H2>ABOUT US</H2>
       </Section>
     </Box>

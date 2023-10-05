@@ -1,7 +1,6 @@
 import Joyride, { CallBackProps, Step } from 'react-joyride';
 import { useMount, useSetState } from 'react-use';
-import styled from '@emotion/styled';
-import { Box, H1, Page } from '@gilbarbara/components';
+import { Box, H1, H2, H3, Page, Paragraph } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -11,15 +10,6 @@ interface State {
   run: boolean;
   steps: Step[];
 }
-
-const Code = styled.code`
-  background-color: #000;
-  color: #fff;
-  display: block;
-  margin-bottom: 15px;
-  padding: 15px;
-  white-space: pre;
-`;
 
 export default function ScrollDemo() {
   const [{ run, steps }] = useSetState<State>({
@@ -31,19 +21,24 @@ export default function ScrollDemo() {
         target: '.app__scroller h2',
       },
       {
-        content: 'Nobody likes errors! 🤬',
+        content: 'Yay! Server components',
         placement: 'top' as const,
-        target: '.app__scroller h3:nth-of-type(2)',
+        target: '.app__scroller h3:nth-of-type(1)',
       },
       {
-        content: 'Yay! Portals are awesome',
+        content: 'This is the way.',
         placement: 'top' as const,
         target: '.app__scroller h3:nth-of-type(3)',
       },
       {
-        content: 'SSR is supported',
+        content: 'Code, Debug, Repeat.',
         placement: 'top' as const,
         target: '.app__scroller h3:nth-of-type(4)',
+      },
+      {
+        content: 'Several exciting features',
+        placement: 'top' as const,
+        target: '.app__scroller h3:nth-of-type(6)',
       },
     ],
   });
@@ -60,7 +55,7 @@ export default function ScrollDemo() {
   };
 
   return (
-    <Page centered shade="lighter" textAlign="left" variant="gray">
+    <Page bg="gray.200" centered textAlign="left">
       <Joyride
         callback={handleJoyrideCallback}
         continuous
@@ -68,177 +63,83 @@ export default function ScrollDemo() {
         scrollToFirstStep
         steps={steps}
       />
-      <H1 mb="xl" variant="red">
+      <H1 color="red" mb="xl">
         Works with custom scrolling parents!
       </H1>
       <Box
+        bg="white"
         className="app__scroller"
         height="50vh"
         maxWidth={800}
         mx="auto"
         padding="md"
         style={{ overflow: 'scroll' }}
-        variant="white"
       >
-        <div>
-          <h2 style={{ marginTop: 0 }}>React 16</h2>
-          <p>
-            We’re excited to announce the release of React v16.0! Among the changes are some
-            long-standing feature requests, including fragments, error boundaries, portals, support
-            for custom DOM attributes, improved server-side rendering, and reduced file size.
-          </p>
+        <H2 mt={0}>New Features in React 18</H2>
+        <Paragraph>
+          React 18 has arrived with a host of new features and improvements, offering developers
+          even more power and flexibility in building user interfaces. This latest version brings
+          some significant updates that aim to enhance performance, ease development workflows, and
+          provide better developer experience overall. Let's delve into the exciting new features in
+          React 18:
+        </Paragraph>
 
-          <h3>New render return types: fragments and strings</h3>
-          <p>
-            You can now return an array of elements from a component’s render method. Like with
-            other arrays, you’ll need to add a key to each element to avoid the key warning:
-          </p>
+        <H3 mt="md">1. React Server Components</H3>
+        <Paragraph>
+          React Server Components is a groundbreaking addition to React 18, introducing a new
+          programming model that allows developers to build components that run on the server. With
+          server components, you can fetch and compute data on the server, providing faster
+          rendering and a more efficient use of resources. This feature enables rendering dynamic
+          components on the server and transferring only the essential state updates to the client,
+          resulting in improved performance and reduced time to interactive experiences.
+        </Paragraph>
 
-          <Code>{`render() {
-  // No need to wrap list items in an extra element!
-  return [
-    // Don't forget the keys :)
-    <li key="A">First item</li>,
-    <li key="B">Second item</li>,
-    <li key="C">Third item</li>,
-  ];
-}
-`}</Code>
+        <H3 mt="md">2. Automatic JSX Transform</H3>
+        <Paragraph>
+          React 18 simplifies the development process by introducing automatic JSX transform. In
+          previous versions, developers needed to set up tooling to transform JSX syntax into
+          JavaScript code that React could understand. With React 18, this transformation is
+          automatically handled by React itself, eliminating the need for additional build
+          configurations and reducing the setup complexity.
+        </Paragraph>
 
-          <p>
-            Starting with React 16.2.0, we are adding support for a special fragment syntax to JSX
-            that doesn’t require keys.
-          </p>
+        <H3 mt="md">3. Suspense SSR</H3>
+        <Paragraph>
+          React 18 enhances Server-Side Rendering (SSR) capabilities with the introduction of
+          Suspense SSR. SSR is the process of rendering React components on the server and sending
+          the pre-rendered HTML to the client for faster initial page loads and improved SEO.
+          Suspense SSR allows developers to use the Suspense component to declaratively handle data
+          fetching and code-splitting during the server rendering process, enabling better control
+          and optimization of server-rendered content.
+        </Paragraph>
 
-          <p>We’ve added support for returning strings, too:</p>
+        <H3 mt="md">4. React Refresh</H3>
+        <Paragraph>
+          Building on the success of Fast Refresh, React 18 introduces React Refresh, a new
+          hot-reloading feature that provides a more reliable and stable development experience.
+          React Refresh allows you to make changes to your code while preserving the component
+          state, avoiding unnecessary full reloads of the application, and providing faster
+          turnaround times during development.
+        </Paragraph>
 
-          <Code>{`render() {
-  return 'Look ma, no spans!';
-}
-`}</Code>
+        <H3 mt="md">5. Improved DevTools</H3>
+        <Paragraph>
+          React 18 comes with enhanced Developer Tools that provide a more intuitive and insightful
+          debugging experience. The updated DevTools offer improved support for profiling,
+          identifying performance bottlenecks, and understanding component re-renders. This helps
+          developers optimize their applications and deliver better performance to end-users.
+        </Paragraph>
 
-          <h3>Better error handling</h3>
-          <p>
-            Previously, runtime errors during rendering could put React in a broken state, producing
-            cryptic error messages and requiring a page refresh to recover. To address this problem,
-            React 16 uses a more resilient error-handling strategy. By default, if an error is
-            thrown inside a component’s render or lifecycle methods, the whole component tree is
-            unmounted from the root. This prevents the display of corrupted data. However, it’s
-            probably not the ideal user experience.
-          </p>
-
-          <p>
-            Instead of unmounting the whole app every time there’s an error, you can use error
-            boundaries. Error boundaries are special components that capture errors inside their
-            subtree and display a fallback UI in its place. Think of error boundaries like try-catch
-            statements, but for React components.
-          </p>
-
-          <p>For more details, check out our previous post on error handling in React 16.</p>
-
-          <h3>Portals</h3>
-          <p>
-            Portals provide a first-class way to render children into a DOM node that exists outside
-            the DOM hierarchy of the parent component.
-          </p>
-
-          <Code>{`render() {
-// React does *not* create a new div. It renders the children into \`domNode\`.
-// \`domNode\` is any valid DOM node, regardless of its location in the DOM.
-  return ReactDOM.createPortal(
-    this.props.children,
-    domNode,
-  );
-}`}</Code>
-
-          <h3>Better server-side rendering</h3>
-          <p>
-            React 16 includes a completely rewritten server renderer. It’s really fast. It supports
-            streaming, so you can start sending bytes to the client faster. And thanks to a new
-            packaging strategy that compiles away process.env checks (Believe it or not, reading
-            process.env in Node is really slow!), you no longer need to bundle React to get good
-            server-rendering performance.
-          </p>
-
-          <p>
-            Core team member Sasha Aickin wrote a great article describing React 16’s SSR
-            improvements. According to Sasha’s synthetic benchmarks, server rendering in React 16 is
-            roughly three times faster than React 15. “When comparing against React 15 with
-            process.env compiled out, there’s about a 2.4x improvement in Node 4, about a 3x
-            performance improvement in Node 6, and a full 3.8x improvement in the new Node 8.4
-            release. And if you compare against React 15 without compilation, React 16 has a full
-            order of magnitude gain in SSR in the latest version of Node!” (As Sasha points out,
-            please be aware that these numbers are based on synthetic benchmarks and may not reflect
-            real-world performance.)
-          </p>
-
-          <p>
-            In addition, React 16 is better at hydrating server-rendered HTML once it reaches the
-            client. It no longer requires the initial render to exactly match the result from the
-            server. Instead, it will attempt to reuse as much of the existing DOM as possible. No
-            more checksums! In general, we don’t recommend that you render different content on the
-            client versus the server, but it can be useful in some cases (e.g. timestamps). However,
-            it’s dangerous to have missing nodes on the server render as this might cause sibling
-            nodes to be created with incorrect attributes.
-          </p>
-
-          <p>See the documentation for ReactDOMServer for more details.</p>
-
-          <h3>Support for custom DOM attributes</h3>
-          <p>
-            Instead of ignoring unrecognized HTML and SVG attributes, React will now pass them
-            through to the DOM. This has the added benefit of allowing us to get rid of most of
-            React’s attribute whitelist, resulting in reduced file sizes.
-          </p>
-
-          <h3>Reduced file size</h3>
-          <p>Despite all these additions, React 16 is actually smaller compared to 15.6.1!</p>
-
-          <p>
-            react is 5.3 kb (2.2 kb gzipped), down from 20.7 kb (6.9 kb gzipped). react-dom is 103.7
-            kb (32.6 kb gzipped), down from 141 kb (42.9 kb gzipped). react + react-dom is 109 kb
-            (34.8 kb gzipped), down from 161.7 kb (49.8 kb gzipped). That amounts to a combined 32%
-            size decrease compared to the previous version (30% post-gzip).
-          </p>
-
-          <p>
-            The size difference is partly attributable to a change in packaging. React now uses
-            Rollup to create flat bundles for each of its different target formats, resulting in
-            both size and runtime performance wins. The flat bundle format also means that React’s
-            impact on bundle size is roughly consistent regardless of how you ship your app, whether
-            it’s with Webpack, Browserify, the pre-built UMD bundles, or any other system.
-          </p>
-
-          <h3>MIT licensed</h3>
-          <p>
-            In case you missed it, React 16 is available under the MIT license. We’ve also published
-            React 15.6.2 under MIT, for those who are unable to upgrade immediately.
-          </p>
-
-          <h3>New core architecture</h3>
-          <p>
-            React 16 is the first version of React built on top of a new core architecture,
-            codenamed “Fiber.” You can read all about this project over on Facebook’s engineering
-            blog. (Spoiler: we rewrote React!)
-          </p>
-
-          <p>
-            Fiber is responsible for most of the new features in React 16, like error boundaries and
-            fragments. Over the next few releases, you can expect more new features as we begin to
-            unlock the full potential of React.
-          </p>
-
-          <p>
-            Perhaps the most exciting area we’re working on is async rendering—a strategy for
-            cooperatively scheduling rendering work by periodically yielding execution to the
-            browser. The upshot is that, with async rendering, apps are more responsive because
-            React avoids blocking the main thread.
-          </p>
-
-          <p>
-            This demo provides an early peek at the types of problems async rendering can solve:
-          </p>
-        </div>
+        <H3 mt="md">In Conclusion</H3>
+        <Paragraph>
+          React 18 introduces several exciting features that aim to improve performance, streamline
+          development workflows, and enhance the overall developer experience. With server
+          components, automatic JSX transform, Suspense SSR, React Refresh, and improved DevTools,
+          React developers can benefit from increased flexibility, better performance, and more
+          efficient development processes. As you dive into React 18, make sure to explore these new
+          features and leverage their potential to build impressive, high-performing user
+          interfaces. Happy coding!
+        </Paragraph>
       </Box>
     </Page>
   );

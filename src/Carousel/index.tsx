@@ -92,7 +92,7 @@ export default function CarouselDemo() {
   };
 
   return (
-    <Page shade="lighter" variant="red">
+    <Page bg="red.200">
       <Joyride
         callback={handleJoyrideCallback}
         continuous

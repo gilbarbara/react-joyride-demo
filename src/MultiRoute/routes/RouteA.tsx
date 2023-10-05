@@ -22,12 +22,12 @@ export default function RouteA() {
 
   return (
     <Box>
-      <H2 align="center" variant="purple">
+      <H2 align="center" color="purple">
         <span id="routeA">Route A</span>
       </H2>
       {tourActive && showLoader && (
         <BoxCenter height={200}>
-          <Loader size={100} variant="purple" />
+          <Loader color="purple" size={100} />
         </BoxCenter>
       )}
     </Box>

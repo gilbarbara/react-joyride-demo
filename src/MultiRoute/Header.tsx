@@ -9,7 +9,7 @@ export default function Header() {
       <Spacer distribution="center">
         <NavLink end style={style} to="/multi-route">
           {({ isActive }) => (
-            <Button invert={!isActive} size="sm" variant="purple">
+            <Button bg="purple" invert={!isActive} size="sm">
               Home
             </Button>
           )}
@@ -17,7 +17,7 @@ export default function Header() {
 
         <NavLink style={style} to="/multi-route/a">
           {({ isActive }) => (
-            <Button invert={!isActive} size="sm" variant="purple">
+            <Button bg="purple" invert={!isActive} size="sm">
               Route A
             </Button>
           )}
@@ -25,7 +25,7 @@ export default function Header() {
 
         <NavLink style={style} to="/multi-route/b">
           {({ isActive }) => (
-            <Button invert={!isActive} size="sm" variant="purple">
+            <Button bg="purple" invert={!isActive} size="sm">
               Route B
             </Button>
           )}
