@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
-import { AnyObject } from '@gilbarbara/types';
 
 const Component = styled.div`
   align-items: center;
   background: #202020;
   color: #fff;
   display: flex;
-  font: 3rem 'Lobster', georgia, serif;
+  font:
+    3rem 'Lobster',
+    georgia,
+    serif;
   height: 2.5em;
   position: sticky;
   justify-content: center;
@@ -50,7 +52,7 @@ const Component = styled.div`
   }
 `;
 
-export default function StarBurst({ children, ...rest }: AnyObject) {
+export default function StarBurst({ children, ...rest }: any) {
   return (
     <Component {...rest}>
       <span>{children}</span>

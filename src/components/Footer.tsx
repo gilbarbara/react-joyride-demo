@@ -8,6 +8,7 @@ function Footer() {
     <Box
       align="center"
       as="footer"
+      bg="white"
       border={[{ side: 'top' }]}
       bottom={0}
       display="flex"
@@ -17,7 +18,6 @@ function Footer() {
       position="fixed"
       px="md"
       right={0}
-      variant="white"
       zIndex={50}
     >
       <Maze />

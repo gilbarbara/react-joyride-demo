@@ -65,7 +65,10 @@ export default function MultiRouteWrapper() {
   const handleCallback = (data: CallBackProps) => {
     const { action, index, lifecycle, type } = data;
 
-    if (type === 'step:after' && index === 0 /* or step.target === '#home' */) {
+    if (
+      type === 'step:after' &&
+      (index === 0 /* or step.target === '#home' */ || (action === 'prev' && index === 2))
+    ) {
       setState({ run: false });
 
       navigate('/multi-route/a');
@@ -77,10 +80,6 @@ export default function MultiRouteWrapper() {
         navigate('/multi-route');
         setState({ run: true, stepIndex: 0 });
       }
-    } else if (type === 'step:after' && action === 'prev' && index === 2) {
-      setState({ run: false });
-
-      navigate('/multi-route/a');
     } else if (action === 'reset' || lifecycle === 'complete') {
       setState({ run: false, stepIndex: 0, tourActive: false });
     }

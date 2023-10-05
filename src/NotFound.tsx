@@ -6,7 +6,7 @@ function NotFound() {
     <Page centered>
       <NonIdealState type="not-found">
         <Link to="/">
-          <Button variant="black">Go Home</Button>
+          <Button bg="black">Go Home</Button>
         </Link>
       </NonIdealState>
     </Page>

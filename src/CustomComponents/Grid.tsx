@@ -16,7 +16,7 @@ const GridImages = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  background-color: ${theme.variants.primary.lightest.bg};
+  background-color: ${theme.variants.primary['100']};
   padding-bottom: calc(100% / 1.5);
   position: relative;
   width: 100%;
@@ -30,26 +30,47 @@ const Img = styled.img`
 `;
 
 export default function Grid() {
+  const imageWidth = 1024;
+  const imageHeight = 683;
+
   return (
     <Box align="center" display="flex" justify="center">
       <GridImages className="image-grid">
         <ImgWrapper>
-          <Img alt="1" src="https://placeimg.com/1024/683/people/grayscale?1" />
+          <Img
+            alt="1"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?red`}
+          />
         </ImgWrapper>
         <ImgWrapper>
-          <Img alt="2" src="https://placeimg.com/1024/683/people/grayscale?2" />
+          <Img
+            alt="2"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?orange`}
+          />
         </ImgWrapper>
         <ImgWrapper>
-          <Img alt="3" src="https://placeimg.com/1024/683/people/grayscale?3" />
+          <Img
+            alt="3"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?yellow`}
+          />
         </ImgWrapper>
         <ImgWrapper>
-          <Img alt="4" src="https://placeimg.com/1024/683/people/grayscale?4" />
+          <Img
+            alt="4"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?green`}
+          />
         </ImgWrapper>
         <ImgWrapper>
-          <Img alt="5" src="https://placeimg.com/1024/683/people/grayscale?5" />
+          <Img
+            alt="5"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?blue`}
+          />
         </ImgWrapper>
         <ImgWrapper>
-          <Img alt="6" src="https://placeimg.com/1024/683/people/grayscale?6" />
+          <Img
+            alt="6"
+            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?magenta`}
+          />
         </ImgWrapper>
       </GridImages>
     </Box>
