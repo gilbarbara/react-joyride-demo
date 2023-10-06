@@ -9,8 +9,6 @@ export default defineConfig({
   },
   plugins: [tsconfigPaths(), react()],
   server: {
-    host: true,
     port: 3000,
-    open: true,
   },
 });
