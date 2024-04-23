@@ -20,7 +20,7 @@ export default function MultiRouteWrapper() {
           target: '#home',
           content: (
             <>
-              <Paragraph bold size="large">
+              <Paragraph bold size="lg">
                 This is the home page
               </Paragraph>
               <Paragraph>
@@ -29,13 +29,16 @@ export default function MultiRouteWrapper() {
               </Paragraph>
             </>
           ),
+          data: {
+            next: '/multi-route/a',
+          },
           disableBeacon: true,
         },
         {
           target: '#routeA',
           content: (
             <>
-              <Paragraph bold size="large">
+              <Paragraph bold size="lg">
                 This is Route A
               </Paragraph>
               <Paragraph>
@@ -44,12 +47,16 @@ export default function MultiRouteWrapper() {
               </Paragraph>
             </>
           ),
+          data: {
+            previous: '/multi-route',
+            next: '/multi-route/b',
+          },
         },
         {
           target: '#routeB',
           content: (
             <>
-              <Paragraph bold size="large">
+              <Paragraph bold size="lg">
                 This is Route B
               </Paragraph>
               <Paragraph>
@@ -57,31 +64,41 @@ export default function MultiRouteWrapper() {
               </Paragraph>
             </>
           ),
+          data: {
+            previous: '/multi-route/a',
+            next: '/multi-route',
+          },
         },
       ],
     });
   });
 
   const handleCallback = (data: CallBackProps) => {
-    const { action, index, lifecycle, type } = data;
+    const {
+      action,
+      index,
+      step: {
+        data: { next, previous },
+      },
+      type,
+    } = data;
+    const isPreviousAction = action === 'prev';
 
-    if (
-      type === 'step:after' &&
-      (index === 0 /* or step.target === '#home' */ || (action === 'prev' && index === 2))
-    ) {
-      setState({ run: false });
-
-      navigate('/multi-route/a');
-    } else if (type === 'step:after' && index === 1) {
-      if (action === 'next') {
+    if (type === 'step:after') {
+      if (index < 2) {
         setState({ run: false });
-        navigate('/multi-route/b');
-      } else {
-        navigate('/multi-route');
-        setState({ run: true, stepIndex: 0 });
+
+        navigate(isPreviousAction && previous ? previous : next);
       }
-    } else if (action === 'reset' || lifecycle === 'complete') {
-      setState({ run: false, stepIndex: 0, tourActive: false });
+
+      if (index === 2) {
+        if (isPreviousAction && previous) {
+          setState({ run: false });
+          navigate(previous);
+        } else {
+          setState({ run: false, stepIndex: 0, tourActive: false });
+        }
+      }
     }
   };
 
