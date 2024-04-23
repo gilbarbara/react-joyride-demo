@@ -7,7 +7,7 @@ export default function CodeSandboxEdit() {
         aria-label="Edit react-joyride on CodeSandbox"
         display="block"
         external
-        href="https://codesandbox.io/s/github/gilbarbara/react-joyride-demo/tree/main"
+        href="https://codesandbox.io/p/devbox/github/gilbarbara/react-joyride-demo/tree/main/"
       >
         <img
           alt="Edit react-joyride"
