@@ -1,10 +1,10 @@
-import { Box, DataTable, DataTableColumn, H2, Text } from '@gilbarbara/components';
+import { Box, DataTable, H2, Props, Text } from '@gilbarbara/components';
 
 import ContentBox from '../components/ContentBox';
 
 type Columns = 'name' | 'percentage' | 'paid';
 
-const columns: DataTableColumn<Columns>[] = [
+const columns: Props.DataTableColumn<Columns>[] = [
   {
     key: 'name',
     title: <Text>Name</Text>,

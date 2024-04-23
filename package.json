@@ -22,7 +22,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@gilbarbara/components": "^0.11.4",
+    "@gilbarbara/components": "^0.11.5",
     "a11y-checker": "^2.2.1",
     "react": "^18.2.0",
     "react-app-polyfill": "^3.0.0",
