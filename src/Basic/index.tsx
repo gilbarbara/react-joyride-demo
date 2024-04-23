@@ -1,7 +1,7 @@
 import React from 'react';
 import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 import { useMount, useSetState } from 'react-use';
-import { Box, BoxCenter, BoxProps, Button, Divider, H2, Paragraph } from '@gilbarbara/components';
+import { Box, BoxCenter, Button, Divider, H2, Paragraph, Props } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -18,7 +18,7 @@ interface State {
   steps: Step[];
 }
 
-function Section(props: BoxProps) {
+function Section(props: Props.BoxProps) {
   return <BoxCenter color="#fff" height="100vh" px="md" py="xl" {...props} />;
 }
 
@@ -118,7 +118,6 @@ export default function BasicDemo(props: Props) {
       <Joyride
         callback={handleJoyrideCallback}
         continuous
-        hideCloseButton
         run={run}
         scrollToFirstStep
         showProgress

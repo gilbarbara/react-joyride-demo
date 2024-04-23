@@ -21,7 +21,7 @@ export default function GlobalStyles() {
           background-color: ${theme.white};
           color: ${theme.darkColor};
           font-family: Rubik, sans-serif;
-          font-size: ${theme.typography.regular.fontSize};
+          font-size: ${theme.typography.md.fontSize};
           margin: 0;
           min-height: 100vh;
           padding: 0;

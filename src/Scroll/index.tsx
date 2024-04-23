@@ -47,7 +47,6 @@ export default function ScrollDemo() {
     a11yChecker();
   });
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { type } = data;
 
