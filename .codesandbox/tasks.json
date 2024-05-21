@@ -6,8 +6,8 @@
     }
   ],
   "tasks": {
-    "dev": {
-      "name": "dev",
+    "start": {
+      "name": "start",
       "command": "pnpm start",
       "runAtStart": true,
       "preview": {
