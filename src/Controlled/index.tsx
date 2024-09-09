@@ -242,7 +242,7 @@ export default function ControlledDemo() {
         width={240}
       >
         <Box ref={sidebar} bg="white" fill padding="md">
-          <Spacer direction="vertical">
+          <Spacer orientation="vertical">
             <Link className="menu-item" to="/">
               Home
             </Link>

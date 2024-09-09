@@ -3,7 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Joyride, { ACTIONS, CallBackProps, EVENTS, STATUS, Step } from 'react-joyride';
 import { Carousel } from 'react-responsive-carousel';
 import { useMeasure, useMount, useSetState } from 'react-use';
-import { Anchor, Box, BoxCenter, Button, H4, H5, Page, theme } from '@gilbarbara/components';
+import { Anchor, Box, Button, FlexCenter, H4, H5, Page, theme } from '@gilbarbara/components';
 // @ts-ignore
 import a11yChecker from 'a11y-checker';
 
@@ -139,9 +139,9 @@ export default function CarouselDemo() {
         </Carousel>
       </Box>
       {!run && stepIndex > 0 && (
-        <BoxCenter mt="xl">
+        <FlexCenter mt="xl">
           <Button onClick={handleClickReset}>Restart</Button>
-        </BoxCenter>
+        </FlexCenter>
       )}
     </Page>
   );

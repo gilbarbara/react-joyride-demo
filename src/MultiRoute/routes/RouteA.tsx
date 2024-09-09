@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMount } from 'react-use';
-import { Box, BoxCenter, Button, H2, Loader } from '@gilbarbara/components';
+import { Box, Button, FlexCenter, H2, Loader } from '@gilbarbara/components';
 
 import { useAppContext } from '../context';
 
@@ -27,9 +27,9 @@ export default function RouteA() {
         <span id="routeA">Route A</span>
       </H2>
       {tourActive && showLoader && (
-        <BoxCenter height={100}>
+        <FlexCenter height={100}>
           <Loader color="purple" size={100} />
-        </BoxCenter>
+        </FlexCenter>
       )}
       <Box padding="xl" textAlign="center">
         <Link to="/multi-route">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMount } from 'react-use';
-import { Box, BoxCenter, Button, H2, Loader } from '@gilbarbara/components';
+import { Box, Button, FlexCenter, H2, Loader } from '@gilbarbara/components';
 
 import { useAppContext } from '../context';
 
@@ -32,9 +32,9 @@ export default function Home() {
         <span id="home">Home</span>
       </H2>
       {tourActive && showLoader && (
-        <BoxCenter height={100}>
+        <FlexCenter height={100}>
           <Loader color="purple" size={100} />
-        </BoxCenter>
+        </FlexCenter>
       )}
       {!run && (
         <Box padding="xl" textAlign="center">

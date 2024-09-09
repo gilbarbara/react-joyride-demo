@@ -1,8 +1,8 @@
-import { Anchor, BoxCenter } from '@gilbarbara/components';
+import { Anchor, FlexCenter } from '@gilbarbara/components';
 
 export default function CodeSandboxEdit() {
   return (
-    <BoxCenter bg="gray.100" pb="jumbo" pt="xl" px="md">
+    <FlexCenter bg="gray.100" pb="jumbo" pt="xl" px="md">
       <Anchor
         aria-label="Edit react-joyride on CodeSandbox"
         display="block"
@@ -14,6 +14,6 @@ export default function CodeSandboxEdit() {
           src="https://codesandbox.io/static/img/play-codesandbox.svg"
         />
       </Anchor>
-    </BoxCenter>
+    </FlexCenter>
   );
 }

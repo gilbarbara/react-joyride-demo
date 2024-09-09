@@ -233,7 +233,6 @@ function Custom(props: Props) {
   };
 
   const handleClickRestart = () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { reset } = helpers.current!;
 
     setState({ complete: false });
@@ -266,7 +265,7 @@ function Custom(props: Props) {
           </H1>
         )}
       </FormattedMessage>
-      <Spacer direction="vertical" distribution="center" my="md">
+      <Spacer distribution="center" my="md" orientation="vertical">
         <Dropdown
           items={languageOptions}
           onChange={handleSelect}
