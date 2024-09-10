@@ -36,8 +36,8 @@ importers:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.4)
       react-joyride:
-        specifier: ^2.8.2
-        version: 2.8.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^2.9.1
+        version: 2.9.1(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-modal:
         specifier: ^3.16.1
         version: 3.16.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2494,8 +2494,8 @@ packages:
   react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  react-joyride@2.8.2:
-    resolution: {integrity: sha512-2QY8HB1G0I2OT0PKMUz7gg2HAjdkG2Bqi13r0Bb1V16PAwfb9khn4wWBTOJsGsjulbAWiQ3/0YrgNUHGFmuifw==}
+  react-joyride@2.9.1:
+    resolution: {integrity: sha512-JYlM3uWbet3yPWpToPFOYyAdjAZxa0MUZYpKX/rjCm73Lj/Cyy1Lecul4Hfw/vPhYrpXhbYnR1x+DGamtWjfZQ==}
     peerDependencies:
       react: 15 - 18
       react-dom: 15 - 18
@@ -2933,8 +2933,8 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
 
-  type-fest@4.18.2:
-    resolution: {integrity: sha512-+suCYpfJLAe4OXS6+PPXjW3urOS4IoP9waSiLuXfLgqZODKw/aWwASvzqE886wA0kQgGy0mIWyhd87VpqIy6Xg==}
+  type-fest@4.26.1:
+    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
     engines: {node: '>=16'}
 
   type-fest@4.3.3:
@@ -5802,7 +5802,7 @@ snapshots:
 
   react-is@18.2.0: {}
 
-  react-joyride@2.8.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-joyride@2.9.1(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@gilbarbara/deep-equal': 0.3.1
       deep-diff: 1.0.2
@@ -5816,7 +5816,7 @@ snapshots:
       scroll: 3.0.1
       scrollparent: 2.1.0
       tree-changes: 0.11.2
-      type-fest: 4.18.2
+      type-fest: 4.26.1
     transitivePeerDependencies:
       - '@types/react'
 
@@ -6289,7 +6289,7 @@ snapshots:
 
   type-fest@0.8.1: {}
 
-  type-fest@4.18.2: {}
+  type-fest@4.26.1: {}
 
   type-fest@4.3.3: {}
 
