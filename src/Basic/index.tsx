@@ -1,5 +1,5 @@
 import React from 'react';
-import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
+import Joyride, { ACTIONS, CallBackProps, EVENTS, Events, STATUS, Step } from 'react-joyride';
 import { useMount, useSetState } from 'react-use';
 import { Box, Button, Divider, FlexCenter, H2, Paragraph, Props } from '@gilbarbara/components';
 // @ts-ignore
@@ -15,6 +15,7 @@ interface Props {
 
 interface State {
   run: boolean;
+  stepIndex: number;
   steps: Step[];
 }
 
@@ -24,8 +25,9 @@ function Section(props: Props.BoxProps) {
 
 export default function BasicDemo(props: Props) {
   const { breakpoint } = props;
-  const [{ run, steps }, setState] = useSetState<State>({
+  const [{ run, stepIndex, steps }, setState] = useSetState<State>({
     run: false,
+    stepIndex: 0,
     steps: [
       {
         content: <h2>Let's begin our journey!</h2>,
@@ -103,11 +105,17 @@ export default function BasicDemo(props: Props) {
   };
 
   const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status, type } = data;
+    const { action, index, status, type } = data;
     const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (finishedStatuses.includes(status)) {
       setState({ run: false });
+    } else if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as Events[]).includes(type)) {
+      const nextStepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
+
+      setState({
+        stepIndex: nextStepIndex,
+      });
     }
 
     logGroup(type, data);
@@ -122,6 +130,7 @@ export default function BasicDemo(props: Props) {
         scrollToFirstStep
         showProgress
         showSkipButton
+        stepIndex={stepIndex}
         steps={steps}
         styles={{
           options: {

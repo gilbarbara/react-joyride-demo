@@ -30,6 +30,7 @@ const Img = styled.img`
 `;
 
 export default function Grid() {
+  const imageURL = 'https://picsum.photos';
   const imageWidth = 1024;
   const imageHeight = 683;
 
@@ -37,40 +38,22 @@ export default function Grid() {
     <Box align="center" display="flex" justify="center">
       <GridImages className="image-grid">
         <ImgWrapper>
-          <Img
-            alt="1"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?red`}
-          />
+          <Img alt="1" src={`${imageURL}/${imageWidth}/${imageHeight}?red`} />
         </ImgWrapper>
         <ImgWrapper>
-          <Img
-            alt="2"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?orange`}
-          />
+          <Img alt="2" src={`${imageURL}/${imageWidth}/${imageHeight}?orange`} />
         </ImgWrapper>
         <ImgWrapper>
-          <Img
-            alt="3"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?yellow`}
-          />
+          <Img alt="3" src={`${imageURL}/${imageWidth}/${imageHeight}?yellow`} />
         </ImgWrapper>
         <ImgWrapper>
-          <Img
-            alt="4"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?green`}
-          />
+          <Img alt="4" src={`${imageURL}/${imageWidth}/${imageHeight}?green`} />
         </ImgWrapper>
         <ImgWrapper>
-          <Img
-            alt="5"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?blue`}
-          />
+          <Img alt="5" src={`${imageURL}/${imageWidth}/${imageHeight}?blue`} />
         </ImgWrapper>
         <ImgWrapper>
-          <Img
-            alt="6"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?magenta`}
-          />
+          <Img alt="6" src={`${imageURL}/${imageWidth}/${imageHeight}?magenta`} />
         </ImgWrapper>
       </GridImages>
     </Box>

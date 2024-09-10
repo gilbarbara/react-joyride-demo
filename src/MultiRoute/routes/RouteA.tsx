@@ -31,11 +31,11 @@ export default function RouteA() {
           <Loader color="purple" size={100} />
         </FlexCenter>
       )}
-      <Box padding="xl" textAlign="center">
+      <FlexCenter padding="xl">
         <Link to="/multi-route">
           <Button bg="gray.600">Back to Home</Button>
         </Link>
-      </Box>
+      </FlexCenter>
     </Box>
   );
 }

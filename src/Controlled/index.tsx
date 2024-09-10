@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { push as Menu } from 'react-burger-menu';
-import Joyride, { ACTIONS, CallBackProps, EVENTS, STATUS, Step } from 'react-joyride';
+import Joyride, { ACTIONS, CallBackProps, EVENTS, Events, STATUS, Step } from 'react-joyride';
 import { Link } from 'react-router-dom';
 import { useMount, useSetState } from 'react-use';
 import styled from '@emotion/styled';
@@ -157,7 +157,7 @@ export default function ControlledDemo() {
     if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
       // Need to set our running state to false, so we can restart if we click start again.
       setState({ run: false, stepIndex: 0 });
-    } else if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)) {
+    } else if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as Events[]).includes(type)) {
       const nextStepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
 
       if (sidebarOpen && index === 0) {

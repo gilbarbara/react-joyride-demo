@@ -37,11 +37,11 @@ export default function Home() {
         </FlexCenter>
       )}
       {!run && (
-        <Box padding="xl" textAlign="center">
+        <FlexCenter padding="xl">
           <Button bg="black" onClick={handleClickStart}>
             Start the tour
           </Button>
-        </Box>
+        </FlexCenter>
       )}
     </Box>
   );
