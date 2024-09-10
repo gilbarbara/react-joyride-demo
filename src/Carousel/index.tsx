@@ -16,6 +16,7 @@ interface State {
 }
 
 const isPortrait = window.innerHeight > window.innerWidth;
+const imageURL = 'https://picsum.photos';
 const imageHeight = isPortrait ? 700 : 300;
 const imageWidth = 1000;
 const ratio = imageHeight / imageWidth;
@@ -117,25 +118,13 @@ export default function CarouselDemo() {
         >
           <img
             alt="1"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?blue`}
+            src={`${imageURL}/${imageWidth}/${imageHeight}?blue`}
             style={{ cursor: 'pointer' }}
           />
-          <img
-            alt="2"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}/?green`}
-          />
-          <img
-            alt="3"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?red`}
-          />
-          <img
-            alt="4"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?purple`}
-          />
-          <img
-            alt="5"
-            src={`https://source.unsplash.com/random/${imageWidth}x${imageHeight}?yellow`}
-          />
+          <img alt="2" src={`${imageURL}/${imageWidth}/${imageHeight}/?green`} />
+          <img alt="3" src={`${imageURL}/${imageWidth}/${imageHeight}?red`} />
+          <img alt="4" src={`${imageURL}/${imageWidth}/${imageHeight}?purple`} />
+          <img alt="5" src={`${imageURL}/${imageWidth}/${imageHeight}?yellow`} />
         </Carousel>
       </Box>
       {!run && stepIndex > 0 && (
