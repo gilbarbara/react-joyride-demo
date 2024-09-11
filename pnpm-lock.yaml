@@ -36,8 +36,8 @@ importers:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.4)
       react-joyride:
-        specifier: ^2.9.1
-        version: 2.9.1(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^2.9.2
+        version: 2.9.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-modal:
         specifier: ^3.16.1
         version: 3.16.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2494,8 +2494,8 @@ packages:
   react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  react-joyride@2.9.1:
-    resolution: {integrity: sha512-JYlM3uWbet3yPWpToPFOYyAdjAZxa0MUZYpKX/rjCm73Lj/Cyy1Lecul4Hfw/vPhYrpXhbYnR1x+DGamtWjfZQ==}
+  react-joyride@2.9.2:
+    resolution: {integrity: sha512-DQ3m3W/GeoASv4UE9ZaadFp3ACJusV0kjjBe7zTpPwWuHpvEoofc+2TCJkru0lbA+G9l39+vPVttcJA/p1XeSA==}
     peerDependencies:
       react: 15 - 18
       react-dom: 15 - 18
@@ -5802,7 +5802,7 @@ snapshots:
 
   react-is@18.2.0: {}
 
-  react-joyride@2.9.1(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-joyride@2.9.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@gilbarbara/deep-equal': 0.3.1
       deep-diff: 1.0.2

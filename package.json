@@ -1,6 +1,6 @@
 {
   "name": "react-joyride-demo",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "description": "React Joyride Demo",
   "author": "Gil Barbara <gilbarbara@gmail.com>",
   "repository": {
@@ -29,7 +29,7 @@
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.3.1",
     "react-intl": "^6.6.8",
-    "react-joyride": "^2.9.1",
+    "react-joyride": "^2.9.2",
     "react-modal": "^3.16.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.26.2",
