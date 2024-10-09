@@ -29,6 +29,7 @@ function Footer() {
         <Link to="/carousel">Carousel</Link>
         <Link to="/modal">Modal</Link>
         <Link to="/scroll">Scroll</Link>
+        <Link to="https://docs.react-joyride.com/" target="__blank">Documentation</Link>
       </Spacer>
       <Box height={32} width={32} />
     </Box>
