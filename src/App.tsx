@@ -43,20 +43,22 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Basic breakpoint={breakpoint} />} path="/" />
-        <Route element={<Controlled />} path="/controlled" />
-        <Route element={<CustomComponents />} path="/custom" />
-        <Route element={<Carousel />} path="/carousel" />
-        <Route element={<Modal />} path="/modal" />
-        <Route element={<MultiRoute />} path="/multi-route">
-          <Route element={<MultiRouteHome />} index />
-          <Route element={<MultiRouteA />} path="a" />
-          <Route element={<MultiRouteB />} path="b" />
-        </Route>
-        <Route element={<Scroll />} path="/scroll" />
-        <Route element={<NotFound />} path="*" />
-      </Routes>
+      <main role="main">
+        <Routes>
+          <Route element={<Basic breakpoint={breakpoint} />} path="/" />
+          <Route element={<Controlled />} path="/controlled" />
+          <Route element={<CustomComponents />} path="/custom" />
+          <Route element={<Carousel />} path="/carousel" />
+          <Route element={<Modal />} path="/modal" />
+          <Route element={<MultiRoute />} path="/multi-route">
+            <Route element={<MultiRouteHome />} index />
+            <Route element={<MultiRouteA />} path="a" />
+            <Route element={<MultiRouteB />} path="b" />
+          </Route>
+          <Route element={<Scroll />} path="/scroll" />
+          <Route element={<NotFound />} path="*" />
+        </Routes>
+      </main>
       {NODE_ENV === 'production' && <CodeSandboxEdit />}
       {NODE_ENV === 'production' && <GitHubRepo />}
       <Footer />
