@@ -35,9 +35,6 @@ export default function BasicDemo(props: Props) {
       },
       {
         content: <h2>Sticky elements</h2>,
-        floaterProps: {
-          disableAnimation: true,
-        },
         spotlightPadding: 20,
         target: '.star-burst',
       },
@@ -124,6 +121,7 @@ export default function BasicDemo(props: Props) {
         callback={handleJoyrideCallback}
         continuous
         run={run}
+        scrollOffset={64}
         scrollToFirstStep
         showProgress
         showSkipButton

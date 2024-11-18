@@ -1,4 +1,4 @@
-import Joyride, { CallBackProps } from 'react-joyride';
+import Joyride, { CallBackProps, EVENTS } from 'react-joyride';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useMount } from 'react-use';
 import { Page, Paragraph, theme } from '@gilbarbara/components';
@@ -51,6 +51,7 @@ export default function MultiRouteWrapper() {
             previous: '/multi-route',
             next: '/multi-route/b',
           },
+          disableBeacon: true,
         },
         {
           target: '#routeB',
@@ -68,6 +69,7 @@ export default function MultiRouteWrapper() {
             previous: '/multi-route/a',
             next: '/multi-route',
           },
+          disableBeacon: true,
         },
       ],
     });
@@ -84,10 +86,9 @@ export default function MultiRouteWrapper() {
     } = data;
     const isPreviousAction = action === 'prev';
 
-    if (type === 'step:after') {
+    if (type === EVENTS.STEP_AFTER) {
       if (index < 2) {
         setState({ run: false });
-
         navigate(isPreviousAction && previous ? previous : next);
       }
 

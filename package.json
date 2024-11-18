@@ -1,6 +1,6 @@
 {
   "name": "react-joyride-demo",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "description": "React Joyride Demo",
   "author": "Gil Barbara <gilbarbara@gmail.com>",
   "repository": {
@@ -22,33 +22,33 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@gilbarbara/components": "^0.14.1",
+    "@gilbarbara/components": "^0.14.5",
     "a11y-checker": "^2.2.1",
     "react": "^18.3.1",
     "react-app-polyfill": "^3.0.0",
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.3.1",
-    "react-intl": "^6.6.8",
-    "react-joyride": "^2.9.2",
+    "react-intl": "^7.0.1",
+    "react-joyride": "2.9.3",
     "react-modal": "^3.16.1",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.26.2",
+    "react-router-dom": "^6.28.0",
     "react-use": "^17.5.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@gilbarbara/eslint-config": "^0.8.1",
+    "@gilbarbara/eslint-config": "^0.8.2",
     "@gilbarbara/prettier-config": "^1.0.0",
     "@gilbarbara/types": "^0.2.2",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.12.12",
-    "@types/react": "^18.3.5",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
     "@types/react-burger-menu": "^2.8.7",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
     "@types/react-modal": "^3.16.3",
-    "@vitejs/plugin-react-swc": "^3.7.0",
-    "vite": "^5.4.3",
-    "vite-tsconfig-paths": "^5.0.1"
+    "@vitejs/plugin-react-swc": "^3.7.1",
+    "vite": "^5.4.11",
+    "vite-tsconfig-paths": "^5.1.2"
   },
   "scripts": {
     "start": "vite",

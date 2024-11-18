@@ -88,6 +88,7 @@ export default function ControlledDemo() {
         },
         {
           content: 'This is our sidebar, you can find everything you need here',
+          disableBeacon: true,
           placement: 'right',
           spotlightPadding: 0,
           styles: {
@@ -100,6 +101,7 @@ export default function ControlledDemo() {
         },
         {
           content: 'Check the availability of the team!',
+          disableBeacon: true,
           placement: 'bottom',
           styles: {
             options: {
@@ -213,6 +215,9 @@ export default function ControlledDemo() {
       <Joyride
         callback={handleJoyrideCallback}
         continuous
+        locale={{
+          nextLabelWithProgress: 'Next ({step} of {steps})',
+        }}
         run={run}
         scrollToFirstStep
         showProgress
